@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Progressive Web App Workshop</title>
+    <meta
+      name="description"
+      content="A progressive web app workshop presented by Cloud Four"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#456BD9" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <!-- <link rel="mask-icon" href="https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/safari-pinned-tab.svg" color="#456BD9"> -->
+
+    <link
+      rel="preload"
+      as="font"
+      href="https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <!-- <link rel='dns-prefetch' href='//cdn.polyfill.io' /> -->
+    <!-- <link rel='dns-prefetch' href='//s.w.org' /> -->
+    <style>
+      /**
+   * Regular font -- contains latin and extended latin characters.
+   */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-display: swap;
+        src: local('Source Sans Pro'), local('SourceSansPro-Regular'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2')
+            format('woff2'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff')
+            format('woff');
+      }
+
+      /**
+   * Italic font -- contains latin characters.
+   */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: italic;
+        font-display: swap;
+        src: local('Source Sans Pro Italic'), local('SourceSansPro-It'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-sans-pro-v9-latin_latin-ext-italic.woff2')
+            format('woff2'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-sans-pro-v9-latin_latin-ext-italic.woff')
+            format('woff');
+      }
+
+      /**
+   * Semibold font -- contains subset characters only.
+   */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-weight: 600;
+        font-display: swap;
+        src: local('Source Sans Pro Semibold'), local('SourceSansPro-Semibold'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-sans-pro-v9-subset-600.woff')
+            format('woff');
+      }
+
+      /**
+   * Bold font -- contains latin characters.
+   */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-weight: 700;
+        font-display: swap;
+        src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-sans-pro-v9-latin-700.woff2')
+            format('woff2'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-sans-pro-v9-latin-700.woff')
+            format('woff');
+      }
+
+      /**
+   * Monospace font -- contains latin characters.
+   */
+      @font-face {
+        font-family: 'Source Code Pro';
+        font-display: swap;
+        src: local('Source Code Pro'), local('SourceCodePro-Regular'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-code-pro-v6-latin-regular.woff2')
+            format('woff2'),
+          url('https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/fonts/source-code-pro-v6-latin-regular.woff')
+            format('woff');
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      id="toolkit-css"
+      href="https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/main.css?ver=1539280608"
+      type="text/css"
+      media="all"
+    />
+    <link rel="manifest" href="/manifest.json" />
+  </head>
+
+  <body>
+    <div class="Sky">
+      <div class="u-containSpread">
+        <header class="Sky-nav" role="banner">
+          <ul class="Sky-nav-controls">
+            <li>
+              <a
+                class="Sky-nav-controls-skipToMain Button Button--defaultDark u-textNoWrap u-hiddenTillFocus"
+                href="#main"
+                >Skip to main content</a
+              >
+            </li>
+            <li>
+              <a
+                class="Sky-nav-controls-skipToMenu Button Button--defaultDark"
+                href="#menu"
+                aria-label="Skip to navigation"
+                >Menu</a
+              >
+            </li>
+          </ul>
+          <a class="Sky-nav-logo" href="/">
+            <svg
+              viewBox="0 0 24 24"
+              width="80"
+              height="80"
+              class="Sky-nav-logo-object"
+              role="img"
+              aria-labelledby="logo-title"
+            >
+              <title id="logo-title">Cloud Four</title>
+              <path
+                d="M6.75,15.12a4.36,4.36,0,0,1-1.91-2.29,1.86,1.86,0,0,1,.52-1c0.48-.55,6.07-6.63,8.44-7.67A11.75,11.75,0,0,0,11.92,4c-7,0-7.67,5-7.67,5S0,10.3,0,14.18C0,19.73,6.84,20,6.84,20A15.3,15.3,0,0,0,9,19.92a1.29,1.29,0,0,0,.89-0.71c0.41-1,1-2.59,1.58-4.26C9.2,15.06,7,15.17,6.75,15.12Z"
+              />
+              <path
+                d="M24,13c0-4.91-4.81-5.44-4.81-5.44a6.11,6.11,0,0,0-2.14-2.2c-0.43,1.53-1.54,5.61-1.6,6.38h1.68s0.27,0,.2.33c-0.16.75-.58,2.58-1.48,2.64l-1.18.07c-0.33,1.35-.68,2.76-0.93,3.78a4.7,4.7,0,0,0,3,.91,4.59,4.59,0,0,0,3.35-1.23C24.14,17.56,24,13,24,13Z"
+              />
+              <path
+                d="M13.89,6.86A42.33,42.33,0,0,0,8.9,12l3.61-.14c0.74-2.08,1.38-3.93,1.66-4.74A0.3,0.3,0,0,0,13.89,6.86Z"
+              />
+            </svg>
+          </a>
+          <nav class="Sky-nav-menu" role="navigation" id="menu">
+            <ul class="Sky-nav-menu-items">
+              <li>
+                <a class="Sky-nav-menu-item" href="https://cloudfour.com/does/"
+                  >What We Do</a
+                >
+              </li>
+              <li>
+                <a
+                  class="Sky-nav-menu-item"
+                  href="https://cloudfour.com/believes/"
+                  >Our Approach</a
+                >
+              </li>
+              <li>
+                <a class="Sky-nav-menu-item" href="https://cloudfour.com/made/"
+                  >Our Work</a
+                >
+              </li>
+              <li>
+                <a
+                  class="Sky-nav-menu-item"
+                  href="https://cloudfour.com/thinks/"
+                  >Articles</a
+                >
+              </li>
+              <li>
+                <a
+                  class="Sky-nav-menu-item"
+                  href="https://cloudfour.com/presents/"
+                  >Speaking</a
+                >
+              </li>
+              <li>
+                <a
+                  class="Sky-nav-menu-item"
+                  href="https://cloudfour.com/contributes/"
+                  >Labs</a
+                >
+              </li>
+              <li>
+                <a class="Sky-nav-menu-item" href="https://cloudfour.com/is/"
+                  >Team</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <main role="main" id="main">
+      <div class="Sky Sky--clouds">
+        <div class="u-containSpread">
+          <div class="Grid Grid--alignMiddle u-spaceBottom1">
+            <div
+              class="Grid-cell u-md-size1of2 u-padSides1 u-md-padSidesNone u-md-flexOrderLast u-textCenter"
+            >
+              <img
+                class="u-limitHeight2of3"
+                src="/images/sky-friendly-robot.svg"
+                alt=""
+                style="width: 21.25em; height: 15.625em;"
+              />
+            </div>
+            <div
+              class="Grid-cell u-md-size1of2 u-padSides1 u-padBottom1 u-md-padTop1"
+            >
+              <h1 class="u-textGrow5 u-sm-textGrow6 u-spaceRight1">
+                Progressive Web App Workshop
+              </h1>
+              <p class="u-textGrow1">
+                Presented by Cloud Four
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="u-bgWhite">
+        <article
+          class="u-containProse u-padSides1 u-padEnds4 u-spaceItems1"
+        >
+          <header class="u-spaceItems01">
+            <h1 class="u-textGrow3 u-md-textGrow4">
+              Service Worker Registration
+            </h1>
+            <!-- <p>
+              Written by
+              <a href="https://cloudfour.com/is/gerardo/">Gerardo Rodriguez</a>
+              on
+              <time datetime="2016-08-16">
+                August 16, 2016
+              </time>
+            </p> -->
+          </header>
+
+          <div class="u-staggerItems1 u-cf">
+            <!-- <div class="u-bgGray u-pad1 u-pullSides1 u-spaceItems1 u-textGrow1">
+              <p>
+                A project opportunity combined with my own curiosity allowed me
+                to get a better understanding of Handlebars partials. Turns out
+                you can do much more than I was aware of. Let&#8217;s dig in.
+              </p>
+            </div> -->
+            <p>
+              I was recently working on a small project with only a handful of
+              static pages. Because it was small, we started without a
+              templating system. Once we pushed further into the project, it
+              became obvious the project would benefit from breaking apart the
+              few static pages into partials &amp; layout templates.
+            </p>
+            <p>
+              We had used the
+              <a href="https://github.com/shannonmoeller/handlebars-layouts"
+                >handlebars-layouts</a
+              >
+              library in the past and enjoyed the awesome features it provides.
+              I was tempted to install both
+              <a href="http://handlebarsjs.com/">Handlebars</a> and
+              handlebars-layouts, but that felt excessive.
+            </p>
+            <p>
+              I wondered if it was possible to only use Handlebars without the
+              need of the additional handlebars-layouts library?
+            </p>
+            <p>
+              This is not a knock on handlebars-layouts. We&#8217;ll likely use
+              it in future projects. But I wanted to see if I might be able to
+              rely solely on Handlebars partials to reproduce some of the
+              features offered by the handlebars-layouts helpers.
+            </p>
+            <p>
+              I took a moment to assess the project needs. I asked myself, what
+              features offered by the handlebars-layouts helpers would I be
+              seeking? I came up with this list of helpers it provides based on
+              past experiences:
+            </p>
+            <ul>
+              <li>
+                ability to <code>{{#extend}}</code> layouts
+              </li>
+              <li>
+                ability to <code>{{#embed}}</code> partials
+              </li>
+              <li>
+                ability to set up something similar to how the
+                <code>{{#block}}</code> and <code>{{#content}}</code> helpers
+                work together
+              </li>
+            </ul>
+            <p>
+              Once I came up with this list, I started looking up the
+              <a href="http://handlebarsjs.com/partials.html"
+                >Handlebars partials documentation</a
+              >
+              to get an idea of what might be possible. In doing so, I realized
+              that I had never used Handlebars partials to their full potential.
+              I started learning I could do quite a few things and started
+              mapping them to my needs. Two of the features that caught my
+              attention were
+              <a href="http://handlebarsjs.com/partials.html#partial-block"
+                >partial blocks</a
+              >
+              and
+              <a href="http://handlebarsjs.com/partials.html#inline-partials"
+                >inline partials</a
+              >.
+            </p>
+            <p>
+              I got excited to learn there was more I could do with Handlebars
+              partials than I&#8217;d realized. I took what I had gathered and
+              immediately started writing some code.
+            </p>
+            <div class="HashHeading HashHeading--h2">
+              <h2 id="partials-primer">Partials primer</h2>
+              <a
+                href="#partials-primer"
+                aria-label="Permalink for Partials primer"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <p>
+              Before we get too deep into the case study, let&#8217;s get a
+              better understanding of what Handlebars basic partials, partial
+              blocks and inline partials look like.
+            </p>
+            <p>A basic partial looks like this:</p>
+            <pre><code class="language-javascript">{{&gt; content-block }}</code></pre>
+            <p>
+              This will look for and render a partial that is registered under
+              the name of <code>content-block</code>. If no partial is
+              registered under that name, an error occurs.
+            </p>
+            <p>From the Handlebars partial documentation:</p>
+            <blockquote>
+              <p>
+                The normal behavior when attempting to render a partial that is
+                not found is for the implementation to throw an error. If
+                failover is desired instead, partials may be called using the
+                block syntax.
+              </p>
+            </blockquote>
+            <p>The syntax for a partial block looks like this:</p>
+            <pre><code class="language-handlebars">{{#&gt; content-block}}
+    Default content
+  {{/content-block}}
+  </code></pre>
+            <p>
+              Using the partial block syntax has a benefit. If the
+              <code>content-block</code> partial is not available, the content
+              within the partial block will be rendered, in this case
+              &#8220;Default content&#8221;.
+            </p>
+            <p>An inline partial looks like this:</p>
+            <pre><code class="language-handlebars">{{#*inline "content-block"}}
+    My new content
+  {{/inline}}
+  </code></pre>
+            <p>From the docs:</p>
+            <blockquote>
+              <p>
+                Templates may define block scoped partials via the
+                <code>inline</code> decorator.
+              </p>
+            </blockquote>
+            <p>
+              Inline partials allow us to create partials on-the-fly. If we
+              created this <code>content-block</code> inline partial and it
+              existed on the same page as the <code>content-block</code> partial
+              block, then the content within the inline partial (&#8220;My new
+              content&#8221;) would be rendered in place of the partial block
+              default content. The inline partial can also be used with the
+              basic partial in the same fashion with the only difference being
+              that basic partials don&#8217;t have default content.
+            </p>
+            <p>
+              Now that we have this understanding, let&#8217;s proceed to jump
+              into the case study.
+            </p>
+            <div class="HashHeading HashHeading--h2">
+              <h2 id="the-directory-structure">The directory structure</h2>
+              <a
+                href="#the-directory-structure"
+                aria-label="Permalink for The directory structure"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <p>
+              I wanted a directory structure allowing me to have
+              <code>layouts/</code>, <code>includes/</code> as well as
+              <code>pages/</code>. Below is an example of what this tree
+              structure might look like:
+            </p>
+            <pre><code>src/
+  ├── pages
+  │   ├── page-one.hbs
+  │   └── page-two.hbs
+  └── partials
+      ├── includes
+      │   ├── hero.hbs
+      │   └── footer.hbs
+      └── layouts
+          └── base.hbs
+  </code></pre>
+            <p>
+              To aid in rendering to HTML, I used
+              <a href="http://gulpjs.com/">Gulp</a> +
+              <a href="https://github.com/kaanon/gulp-compile-handlebars"
+                ><code>gulp-compile-handlebars</code></a
+              >. I set up an <code>html</code> Gulp task to treat the
+              <code>src/pages/*.hbs</code> partials as the source. Here is an
+              example of what the Gulp task might look like:
+            </p>
+            <pre><code class="language-js">// gulpfile.js
+  
+  const handlebars = require('gulp-compile-handlebars');
+  const rename = require('gulp-rename');
+  
+  gulp.task('html', () =&gt; {
+    return gulp.src('./src/pages/*.hbs')
+      .pipe(handlebars({}, {
+        ignorePartials: true,
+        batch: ['./src/partials']
+      }))
+      .pipe(rename({
+        extname: '.html'
+      }))
+      .pipe(gulp.dest('./dist'));
+  });
+  </code></pre>
+            <p>
+              What is interesting to note is that whether we declare each file
+              as a &#8220;page&#8221;, an &#8220;include&#8221; or a
+              &#8220;layout&#8221;, they are all simply a Handlebars
+              <em>partial</em>. This is key to allowing ourselves this
+              flexibility. Once I understood this, my possibilities opened up.
+            </p>
+            <p>
+              Using this tree structure, for example,
+              <code>pages/page-one.hbs</code> could extend the
+              <code>layouts/base.hbs</code> layout which could include any of
+              the <code>includes/*.hbs</code> chunks as needed. You can imagine
+              how flexible it is to structure your files, the combinations are
+              endless. If we wanted to, we could even break apart our files and
+              create a
+              <a href="http://bradfrost.com/blog/post/atomic-web-design/"
+                >design system</a
+              >
+              as authored by Brad Frost. We&#8217;ll leave that exploration,
+              though, for another day.
+            </p>
+            <div class="HashHeading HashHeading--h2">
+              <h2 id="layouts-pages-and-includes">
+                Layouts, pages and includes
+              </h2>
+              <a
+                href="#layouts-pages-and-includes"
+                aria-label="Permalink for Layouts, pages and includes"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <p>
+              Continuing with the above tree structure example, let&#8217;s take
+              a closer look at each of the files individually so we can better
+              understand the relationships.
+            </p>
+            <div class="HashHeading HashHeading--h3">
+              <h3 id="the-layout-file">The layout file</h3>
+              <a
+                href="#the-layout-file"
+                aria-label="Permalink for The layout file"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <p>
+              Let&#8217;s first look at the <code>layouts/base.hbs</code> layout
+              file:
+            </p>
+            <pre><code class="language-handlebars">{{!-- layouts/base.hbs --}}
+  
+  &lt;!doctype html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;
+        {{#if title}}
+          {{title}}
+        {{else}}
+          Base Page Title
+        {{/if}}
+      &lt;/title&gt;
+      &lt;link rel="stylesheet" href="main.css"&gt;
+      {{#&gt; head-block}}
+        {{!-- Custom &lt;head&gt; content per page could be added. --}}
+      {{/head-block}}
+    &lt;/head&gt;
+    &lt;body&gt;
+      {{#&gt; hero-block}}
+        {{!-- Hero content goes here. --}}
+      {{/hero-block}}
+  
+      &lt;footer&gt;
+        {{#&gt; footer-block}}
+          {{!--
+            The `includes/footer` partial is the default content,
+            but can be overridden.
+          --}}
+          {{&gt; includes/footer }}
+        {{/footer-block}}
+      &lt;/footer&gt;
+  
+      {{#&gt; scripts-block}}
+        {{!-- Custom scripts per page can be added. --}}
+      {{/scripts-block}}
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </code></pre>
+            <p>
+              There&#8217;s a few things going on, so let&#8217;s break this
+              <code>layouts/base.hbs</code> file down a bit to better understand
+              it.
+            </p>
+            <pre><code class="language-handlebars">&lt;link rel="stylesheet" href="main.css"&gt;
+  {{#&gt; head-block}}
+    {{!-- Custom &lt;head&gt; content per page could be added. --}}
+  {{/head-block}}
+  </code></pre>
+            <p>
+              Here we&#8217;ve set an imaginary <code>main.css</code> file as
+              the stylesheet for the base layout. We are then setting ourselves
+              up, using a Handlebars partial block, to pass in any other
+              <code>&lt;head&gt;</code> content as needed on a per-page basis
+              when extending this layout.<sup id="fnref-4803-1"
+                ><a href="#fn-4803-1">1</a></sup
+              >
+            </p>
+            <pre><code class="language-handlebars">{{#&gt; hero-block}}
+    {{!-- Hero content goes here. --}}
+  {{/hero-block}}
+  </code></pre>
+            <pre><code class="language-handlebars">{{#&gt; scripts-block}}
+    {{!-- Custom scripts per page can be added. --}}
+  {{/scripts-block}}
+  </code></pre>
+            <p>
+              As with the <code>head-block</code>, we are using Handlebars
+              partial blocks for the hero and scripts as well. This gives us the
+              flexibility to reuse the same layout with different content &amp;
+              scripts if needed.
+            </p>
+            <pre><code class="language-handlebars">&lt;footer&gt;
+    {{#&gt; footer-block}}
+      {{!--
+        The `includes/footer` partial is the default content,
+        but can be overridden.
+      --}}
+      {{&gt; includes/footer }}
+    {{/footer-block}}
+  &lt;/footer&gt;
+  </code></pre>
+            <p>
+              For the footer section, we are again using another Handlebars
+              partial block. Different from the previous partial blocks, though,
+              is the default content we&#8217;ve supplied via the
+              <code>{{&gt; includes/footer }}</code> basic partial.
+            </p>
+            <p>
+              If no content is passed to the <code>footer-block</code> partial
+              block, then the default content will get rendered. In all of these
+              partial blocks, we are using Handlebars comments as well.<sup
+                id="fnref-4803-2"
+                ><a href="#fn-4803-2">2</a></sup
+              >
+            </p>
+            <div class="HashHeading HashHeading--h3">
+              <h3 id="the-page-file">The page file</h3>
+              <a
+                href="#the-page-file"
+                aria-label="Permalink for The page file"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <p>
+              The next piece of the puzzle is the page partial file. We will
+              once again be using Handlebars partial blocks while also
+              introducing Handlebars inline partials. Here is an example of what
+              the <code>pages/page-one.hbs</code> file might look like:
+            </p>
+            <pre><code class="language-handlebars">{{!-- pages/page-one.hbs --}}
+  
+  {{#&gt; layouts/base title="Page One" }}
+  
+    {{#*inline "hero-block"}}
+      {{&gt; includes/hero
+        hero-src="img/hero-1.png"
+        hero-alt="Hero 1 alt title"
+      }}
+    {{/inline}}
+  
+  {{/layouts/base}}
+  </code></pre>
+            <p>
+              Let&#8217;s take a moment to break this file down to better
+              understand it as well.
+            </p>
+            <pre><code class="language-handlebars">{{#&gt; layouts/base title="Page One" }}
+    ...
+  {{/layouts/base}}
+  </code></pre>
+            <p>
+              Here we are using a Handlebars partial block again. This time,
+              though, we are using partial blocks as a way to
+              <em>extend</em> the <code>layouts/base</code> layout.<sup
+                id="fnref-4803-3"
+                ><a href="#fn-4803-3">3</a></sup
+              >
+              We are also setting the page <code>title</code> in the
+              process.<sup id="fnref-4803-4"><a href="#fn-4803-4">4</a></sup>
+            </p>
+            <pre><code class="language-handlebars">{{#*inline "hero-block"}}
+    ...
+  {{/inline}}
+  </code></pre>
+            <p>
+              This is the first time we make use of a Handlebars inline partial.
+              This inline partial gets passed into the
+              <code>layouts/base</code> layout and is then pulled in by the
+              <code>hero-block</code> partial block we set up in the layout.<sup
+                id="fnref-4803-5"
+                ><a href="#fn-4803-5">5</a></sup
+              >
+            </p>
+            <pre><code class="language-handlebars">{{&gt; includes/hero
+    hero-src="http://fpoimg.com/500x200"
+    hero-alt="Hero 1 alt title"
+  }}
+  </code></pre>
+            <p>
+              The last bit within the page file is the use of a Handlebars basic
+              partial to include the <code>indludes/hero</code> partial.<sup
+                id="fnref-4803-6"
+                ><a href="#fn-4803-6">6</a></sup
+              >
+              This is the content that gets rendered <em>within</em> the
+              <code>hero-block</code> inside the layout. We are also using
+              partial parameters to set the <code>hero-src</code> and
+              <code>hero-alt</code>.
+            </p>
+            <div class="HashHeading HashHeading--h3">
+              <h3 id="the-includes-files">The includes files</h3>
+              <a
+                href="#the-includes-files"
+                aria-label="Permalink for The includes files"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <p>
+              The <code>includes/*.hbs</code> files are partials that can be
+              included in either layouts or pages. Since we are doing both,
+              let&#8217;s take a quick look at what these files might look like.
+            </p>
+            <pre><code class="language-handlebars">{{!-- includes/hero.hbs --}}
+  
+  &lt;div class="hero"&gt;
+    &lt;img src="{{hero-src}}" alt="{{hero-alt}}"/&gt;
+  &lt;/div&gt;
+  </code></pre>
+            <p>
+              There is nothing ground-breaking going on within the
+              <code>includes/hero.hbs</code> partial. It is simply expecting a
+              <code>hero-src</code> and <code>hero-alt</code> value to be passed
+              in.<sup id="fnref-4803-7"><a href="#fn-4803-7">7</a></sup>
+            </p>
+            <p>
+              The other file we should take a quick peek at is the
+              <code>includes/footer.hbs</code> partial.
+            </p>
+            <pre><code class="language-handlebars">{{!-- includes/footer.hbs --}}
+  
+  &lt;p&gt;This is some default footer content.&lt;/p&gt;
+  </code></pre>
+            <p>
+              Nothing special going on with this partial. It is being included
+              in the <code>layouts/base</code> layout file as the default footer
+              content.
+            </p>
+            <div class="HashHeading HashHeading--h2">
+              <h2 id="the-final-outcome">The final outcome</h2>
+              <a
+                href="#the-final-outcome"
+                aria-label="Permalink for The final outcome"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <p>
+              Now that we&#8217;ve walked through all the pieces in play,
+              let&#8217;s do a recap to remind ourselves what we have.
+            </p>
+            <div class="HashHeading HashHeading--h3">
+              <h3 id="layouts-base-hbs"><code>layouts/base.hbs</code></h3>
+              <a
+                href="#layouts-base-hbs"
+                aria-label="Permalink for layouts/base.hbs"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <ul>
+              <li>acts as the base layout file</li>
+              <li>uses partial blocks for default and dynamic content</li>
+            </ul>
+            <div class="HashHeading HashHeading--h3">
+              <h3 id="pages-page-one-hbs"><code>pages/page-one.hbs</code></h3>
+              <a
+                href="#pages-page-one-hbs"
+                aria-label="Permalink for pages/page-one.hbs"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <ul>
+              <li>acts as a page file</li>
+              <li>uses a partial block to <em>extend</em> the base layout</li>
+              <li>
+                uses inline partials to feed content to the layout partial
+                blocks
+              </li>
+            </ul>
+            <div class="HashHeading HashHeading--h3">
+              <h3 id="includes-hbs"><code>includes/*.hbs</code></h3>
+              <a
+                href="#includes-hbs"
+                aria-label="Permalink for includes/*.hbs"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <ul>
+              <li>partials that can be included in either layouts or pages</li>
+              <li>can be used within a partial block or an inline partial</li>
+            </ul>
+            <p>
+              And now the part we&#8217;ve all been waiting for, the rendered
+              <code>page-one.html</code> file. Using the example files we talked
+              about above, the rendered outcome would look like this:
+            </p>
+            <pre><code class="language-html">&lt;!-- page-one.html --&gt;
+  
+  &lt;!doctype html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;Page One&lt;/title&gt;
+      &lt;!-- 
+        No extra `head-block` content was passed in, 
+        only `main.css` from the base layout rendered.
+      --&gt;
+      &lt;link rel="stylesheet" href="main.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;!-- The `hero-block` content --&gt;
+      &lt;div class="hero"&gt;
+        &lt;img src="http://fpoimg.com/500x200" alt="Hero 1 alt title"/&gt;
+      &lt;/div&gt;
+  
+      &lt;footer&gt;
+        &lt;!-- The `footer-block` content --&gt;
+        &lt;p&gt;This is some default footer content.&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </code></pre>
+            <p>
+              Was that exciting or what? For fun, let&#8217;s create a second
+              page using the <em>same</em> base layout, but let&#8217;s change a
+              few details. Let&#8217;s call it <code>pages/page-two.hbs</code>:
+            </p>
+            <pre><code class="language-handlebars">{{!-- pages/page-two.hbs --}}
+  
+  {{#&gt; layouts/base title="Page Two" }}
+  
+    {{!-- Let's add a second stylesheet for this layout. --}}
+    {{#*inline "head-block"}}
+      &lt;link rel="stylesheet" href="some-other-styles.css"&gt;
+    {{/inline}}
+  
+    {{!-- Let's change the hero image for this layout. --}}
+    {{#*inline "hero-block"}}
+      {{&gt; includes/hero
+        hero-src="http://fpoimg.com/400x400"
+        hero-alt="Hero 2 alt title"
+      }}
+    {{/inline}}
+  
+    {{!-- Let's override the "footer-block" content. --}}
+    {{#*inline "footer-block"}}
+      &lt;p&gt;We are now overriding the default "footer-block" content with this content.&lt;/p&gt;
+    {{/inline}}
+  
+    {{!-- Let's add a script for this layout. --}}
+    {{#*inline "scripts-block"}}
+      &lt;script src="new-script.js"&gt;&lt;/script&gt;
+    {{/inline}}
+  
+  {{/layouts/base}}
+  </code></pre>
+            <p>
+              The rendered HTML for the <code>pages/page-two.hbs</code> file
+              would then look like this:
+            </p>
+            <pre><code class="language-html">&lt;!-- page-two.html --&gt;
+  
+  &lt;!doctype html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;Page Two&lt;/title&gt;
+      &lt;link rel="stylesheet" href="main.css"&gt;
+      &lt;!-- The `head-block` added a stylesheet. --&gt;
+      &lt;link rel="stylesheet" href="some-other-styles.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;!-- Our new `hero-block` content. --&gt;
+      &lt;div class="hero"&gt;
+        &lt;img src="http://fpoimg.com/400x400" alt="Hero 2 alt title"/&gt;
+      &lt;/div&gt;
+  
+      &lt;footer&gt;
+        &lt;!-- We overrode the default `footer-block` content. --&gt;
+        &lt;p&gt;We are now overriding the default "footer-block" content with this content.&lt;/p&gt;
+      &lt;/footer&gt;
+  
+      &lt;!-- The `script-block` added a script. --&gt;
+      &lt;script src="new-script.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </code></pre>
+            <p>
+              As you can see, we are able to create two different pages using
+              the same base layout. Pretty neat!
+            </p>
+            <div class="HashHeading HashHeading--h2">
+              <h2 id="there-you-have-it">There you have it!</h2>
+              <a
+                href="#there-you-have-it"
+                aria-label="Permalink for There you have it!"
+                class="HashHeading-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon"
+                  role="presentation"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  >
+                    <path
+                      d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"
+                    />
+                    <path
+                      d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <p>
+              We were able to use Handlebars
+              <a href="http://handlebarsjs.com/partials.html#partial-block"
+                >partial blocks</a
+              >,
+              <a href="http://handlebarsjs.com/partials.html#inline-partials"
+                >inline partials</a
+              >,
+              <a href="http://handlebarsjs.com/partials.html#basic-partials"
+                >basic partials</a
+              >
+              and
+              <a href="http://handlebarsjs.com/partials.html#partial-parameters"
+                >partial parameters</a
+              >
+              to mimick what can be done using the handlebars-layouts
+              <code>{{#extend}</code>, <code>{{#embed}}</code
+              >, <code>{{#block}}</code> and <code>{{#content}}</code> helpers.
+            </p>
+            <p>
+              This was a fun exercise driven by curiosity which helped me
+              understand Handlebars partials a whole lot better. As is always
+              the case, we must evaluate each project individually to assess
+              what library features and dependencies may or may not be needed.
+              There is never a one-size-fits-all solution.<sup id="fnref-4803-8"
+                ><a href="#fn-4803-8">8</a></sup
+              >
+            </p>
+            <p>
+              If you are curious to dig further, you can take a look at the
+              GitHub
+              <a
+                href="https://github.com/gerardo-rodriguez/handlebars-experimentation"
+                >repository</a
+              >
+              I used to learn and write this article. Feel free to try out
+              different combinations and setups to further experiment with the
+              hidden power of Handlebars partials.
+            </p>
+            <div class="footnotes">
+              <hr />
+              <ol>
+                <li id="fn-4803-1">
+                  This is comparable to the handlebars-layouts
+                  <a
+                    href="https://github.com/shannonmoeller/handlebars-layouts#block-name"
+                    ><code>{{#block}}</code></a
+                  >
+                  helper.&#160;<a href="#fnref-4803-1"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      class="Icon"
+                      role="presentation"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4,14H16a5.76,5.76,0,0,0,6-6,5.76,5.76,0,0,0-6-6"
+                        />
+                        <polyline points="8 8 2 14 8 20" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li id="fn-4803-2">
+                  Handlebars
+                  <a href="http://handlebarsjs.com/#comments">comments</a> are
+                  used because they do not get rendered in the final HTML file.
+                  Had we used regular HTML comments, those comments would get
+                  rendered in the final output because anything within a partial
+                  block will get rendered.&#160;<a href="#fnref-4803-2"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      class="Icon"
+                      role="presentation"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4,14H16a5.76,5.76,0,0,0,6-6,5.76,5.76,0,0,0-6-6"
+                        />
+                        <polyline points="8 8 2 14 8 20" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li id="fn-4803-3">
+                  This is comparable to the handlebars-layouts
+                  <a
+                    href="https://github.com/shannonmoeller/handlebars-layouts#extend-partial-context-keyvalue-"
+                    ><code>{{#extend}}</code></a
+                  >
+                  helper.&#160;<a href="#fnref-4803-3"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      class="Icon"
+                      role="presentation"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4,14H16a5.76,5.76,0,0,0,6-6,5.76,5.76,0,0,0-6-6"
+                        />
+                        <polyline points="8 8 2 14 8 20" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li id="fn-4803-4">
+                  We are taking advantage of the Handlebars
+                  <a
+                    href="http://handlebarsjs.com/partials.html#partial-parameters"
+                    >partial parameters</a
+                  >
+                  feature to set the page title.&#160;<a href="#fnref-4803-4"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      class="Icon"
+                      role="presentation"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4,14H16a5.76,5.76,0,0,0,6-6,5.76,5.76,0,0,0-6-6"
+                        />
+                        <polyline points="8 8 2 14 8 20" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li id="fn-4803-5">
+                  The way the inline partial is used here is comparable to the
+                  <a
+                    href="https://github.com/shannonmoeller/handlebars-layouts#content-name-modeappendprependreplace"
+                    ><code>{{#content}}</code></a
+                  >
+                  handlebars-layouts helper.&#160;<a href="#fnref-4803-5"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      class="Icon"
+                      role="presentation"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4,14H16a5.76,5.76,0,0,0,6-6,5.76,5.76,0,0,0-6-6"
+                        />
+                        <polyline points="8 8 2 14 8 20" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li id="fn-4803-6">
+                  This is comparable to the handlebars-layouts
+                  <a
+                    href="https://github.com/shannonmoeller/handlebars-layouts#embed-partial-context-keyvalue-"
+                    ><code>{{#embed}}</code></a
+                  >
+                  helper.&#160;<a href="#fnref-4803-6"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      class="Icon"
+                      role="presentation"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4,14H16a5.76,5.76,0,0,0,6-6,5.76,5.76,0,0,0-6-6"
+                        />
+                        <polyline points="8 8 2 14 8 20" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li id="fn-4803-7">
+                  An improvement could be made by taking advantage of the
+                  Handlebars <code>{{#if}}{{else}}</code> conditional helper in
+                  case no partial parameters are passed in.&#160;<a
+                    href="#fnref-4803-7"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      class="Icon"
+                      role="presentation"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4,14H16a5.76,5.76,0,0,0,6-6,5.76,5.76,0,0,0-6-6"
+                        />
+                        <polyline points="8 8 2 14 8 20" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li id="fn-4803-8">
+                  There are a few features that don&#8217;t come for free if you
+                  are only using Handlebars. This includes the ability to
+                  <a
+                    href="https://github.com/shannonmoeller/handlebars-layouts#content-name-modeappendprependreplace"
+                    >append or prepend</a
+                  >
+                  using the <code>{{#content}}</code> helper or the ability to
+                  use the <code>content</code> helper as a subexpression to
+                  check whether content has been provided using
+                  <a
+                    href="https://github.com/shannonmoeller/handlebars-layouts#conditional-blocks"
+                    >conditonal blocks</a
+                  >.&#160;<a href="#fnref-4803-8"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      class="Icon"
+                      role="presentation"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4,14H16a5.76,5.76,0,0,0,6-6,5.76,5.76,0,0,0-6-6"
+                        />
+                        <polyline points="8 8 2 14 8 20" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <footer class="u-spaceItems4 u-spaceTop4">
+            <div class="u-cf u-bgGray u-pad1 u-pullSides1">
+              <a
+                class="Thumbnail Thumbnail--circle u-floatRight u-spaceLeft"
+                href="https://cloudfour.com/is/gerardo/"
+              >
+                <img
+                  src="https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/gerardo-r2-75x75-c-default.png"
+                  alt="Gerardo Rodriguez"
+                  width="75"
+                  height="75"
+                  srcset="
+                    https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/gerardo-r2-150x150-c-default.png 2x
+                  "
+                />
+              </a>
+              <p>
+                <a href="https://cloudfour.com/is/gerardo/"
+                  ><strong>Gerardo Rodriguez</strong></a
+                >
+                is a developer driven by curiosity and the love of learning. His
+                experience with art, design, and development make him a
+                well-rounded maker of things on the web. You’ll find him sharing
+                some thoughts and resources on Twitter via
+                <a href="https://twitter.com/_gerardo">@_gerardo</a>.
+              </p>
+            </div>
+          </footer>
+        </article>
+        <div class="u-containSpread">
+          <div class="u-posRelative">
+            <img
+              class="u-posAbsoluteBottomRight u-size2of5 u-sm-size1of3 u-sm-spaceRight1 u-md-size1of4"
+              src="https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/wp-content/themes/cloudfour/static/toolkit/images/portland.svg"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      class="u-containSpread u-padSides1 u-padTop2 u-padBottom3"
+      role="contentinfo"
+    >
+      <div class="Grid u-posRelative">
+        <div class="Grid-cell u-sm-size1of2 u-md-size1of3">
+          <p>
+            <a href="https://cloudfour.com"
+              ><strong>Cloud Four, Inc.</strong></a
+            >
+          </p>
+          <p>
+            510 SW 3rd Ave, Suite 420<br />
+            Portland, Oregon 97204 USA
+          </p>
+          <ul class="u-listUnstyled">
+            <li><a href="mailto:info@cloudfour.com">info@cloudfour.com</a></li>
+            <li><a href="tel:15032901090">+1 503.290.1090</a></li>
+          </ul>
+          <ul
+            class="u-listInline u-spaceTop1 u-md-spaceTopNone u-md-posAbsoluteTopRight"
+          >
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://twitter.com/cloudfour"
+                title="Follow @cloudfour on Twitter"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M24,4.31a9.85,9.85,0,0,1-2.83.78,4.94,4.94,0,0,0,2.17-2.72,9.86,9.86,0,0,1-3.13,1.19A4.93,4.93,0,0,0,11.82,8,14,14,0,0,1,1.67,2.9,4.93,4.93,0,0,0,3.19,9.48,4.9,4.9,0,0,1,1,8.86V8.92a4.93,4.93,0,0,0,3.95,4.83,4.94,4.94,0,0,1-2.22.08,4.93,4.93,0,0,0,4.6,3.42,9.88,9.88,0,0,1-6.12,2.11A10,10,0,0,1,0,19.29,13.94,13.94,0,0,0,7.55,21.5a13.91,13.91,0,0,0,14-14q0-.32,0-0.64A10,10,0,0,0,24,4.31"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://www.facebook.com/cloudfourweb/"
+                title="Like Cloud Four on Facebook"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M21.79,1H2.21A1.21,1.21,0,0,0,1,2.21V21.79A1.21,1.21,0,0,0,2.21,23H12.75V14.48H9.88V11.16h2.87V8.71A4,4,0,0,1,17,4.32a23.52,23.52,0,0,1,2.56.13v3H17.83A1.38,1.38,0,0,0,16.18,9v2.12h3.29L19,14.48H16.18V23h5.61A1.21,1.21,0,0,0,23,21.79V2.21A1.21,1.21,0,0,0,21.79,1Z"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://www.instagram.com/cloudfourpdx/"
+                title="Follow @cloudfourpdx on Instagram"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M12,2.16c3.2,0,3.58,0,4.85.07a6.64,6.64,0,0,1,2.23.41,3.72,3.72,0,0,1,1.38.9,3.72,3.72,0,0,1,.9,1.38,6.64,6.64,0,0,1,.41,2.23c0.06,1.27.07,1.64,0.07,4.85s0,3.58-.07,4.85a6.64,6.64,0,0,1-.41,2.23,4,4,0,0,1-2.28,2.28,6.64,6.64,0,0,1-2.23.41c-1.27.06-1.64,0.07-4.85,0.07s-3.58,0-4.85-.07a6.64,6.64,0,0,1-2.23-.41,3.72,3.72,0,0,1-1.38-.9,3.72,3.72,0,0,1-.9-1.38,6.64,6.64,0,0,1-.41-2.23C2.17,15.58,2.16,15.2,2.16,12s0-3.58.07-4.85a6.64,6.64,0,0,1,.41-2.23,3.72,3.72,0,0,1,.9-1.38,3.72,3.72,0,0,1,1.38-.9,6.64,6.64,0,0,1,2.23-.41C8.42,2.17,8.8,2.16,12,2.16M12,0C8.74,0,8.33,0,7.05.07A8.81,8.81,0,0,0,4.14.63,5.88,5.88,0,0,0,2,2,5.88,5.88,0,0,0,.63,4.14,8.81,8.81,0,0,0,.07,7.05C0,8.33,0,8.74,0,12s0,3.67.07,4.95a8.81,8.81,0,0,0,.56,2.91A5.88,5.88,0,0,0,2,22a5.88,5.88,0,0,0,2.13,1.38,8.81,8.81,0,0,0,2.91.56C8.33,24,8.74,24,12,24s3.67,0,4.95-.07a8.81,8.81,0,0,0,2.91-.56,6.14,6.14,0,0,0,3.51-3.51,8.81,8.81,0,0,0,.56-2.91C24,15.67,24,15.26,24,12s0-3.67-.07-4.95a8.81,8.81,0,0,0-.56-2.91A5.88,5.88,0,0,0,22,2,5.88,5.88,0,0,0,19.86.63,8.81,8.81,0,0,0,16.95.07C15.67,0,15.26,0,12,0h0Z"
+                  />
+                  <path
+                    d="M12,5.84A6.16,6.16,0,1,0,18.16,12,6.16,6.16,0,0,0,12,5.84ZM12,16a4,4,0,1,1,4-4A4,4,0,0,1,12,16Z"
+                  />
+                  <circle cx="18.41" cy="5.59" r="1.44" />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://github.com/cloudfour"
+                title="Cloud Four's repositories on GitHub"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M0,12A12,12,0,0,0,8.21,23.39,0.6,0.6,0,0,0,9,22.81c0-.29,0-1,0-2-3.34.72-4-1.61-4-1.61A3.18,3.18,0,0,0,3.63,17.4c-1.09-.74.08-0.73,0.08-0.73a2.52,2.52,0,0,1,1.84,1.24,2.56,2.56,0,0,0,3.49,1,2.57,2.57,0,0,1,.76-1.6C7.14,17,4.34,16,4.34,11.37A4.64,4.64,0,0,1,5.58,8.15,4.32,4.32,0,0,1,5.7,5s1-.32,3.3,1.23a11.38,11.38,0,0,1,6,0C17.3,4.65,18.3,5,18.3,5a4.31,4.31,0,0,1,.12,3.18,4.63,4.63,0,0,1,1.23,3.22c0,4.61-2.81,5.62-5.48,5.92A2.86,2.86,0,0,1,15,19.52c0,1.6,0,2.9,0,3.29a0.6,0.6,0,0,0,.83.58A12,12,0,1,0,0,12Z"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://www.linkedin.com/company/cloud-four"
+                title="Follow Cloud Four on LinkedIn"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M21.37,1H2.62A1.61,1.61,0,0,0,1,2.59V21.41A1.61,1.61,0,0,0,2.62,23H21.37A1.61,1.61,0,0,0,23,21.41V2.59A1.61,1.61,0,0,0,21.37,1ZM7.53,19.75H4.26V9.25H7.53v10.5ZM5.89,7.81A1.89,1.89,0,1,1,7.79,5.92,1.89,1.89,0,0,1,5.89,7.81ZM19.75,19.75H16.48V14.64c0-1.22,0-2.78-1.7-2.78s-2,1.33-2,2.7v5.19H9.57V9.25H12.7v1.44h0A3.43,3.43,0,0,1,15.83,9c3.3,0,3.91,2.17,3.91,5v5.76Z"
+                  />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <hr class="Grid-cell u-sm-hidden u-spaceTop1 u-spaceBottomNone" />
+        <nav
+          class="Grid-cell u-spaceTop1 u-sm-spaceTopNone u-sm-size1of2 u-md-size1of3"
+        >
+          <ul class="u-listUnstyled u-columns2">
+            <li><a href="https://cloudfour.com/does/">What We Do</a></li>
+            <li><a href="https://cloudfour.com/believes/">Our Approach</a></li>
+            <li><a href="https://cloudfour.com/made/">Our Work</a></li>
+            <li><a href="https://cloudfour.com/thinks/">Articles</a></li>
+            <li><a href="https://cloudfour.com/presents/">Speaking</a></li>
+            <li><a href="https://cloudfour.com/contributes/">Labs</a></li>
+            <li><a href="https://cloudfour.com/is/">Team</a></li>
+            <li>
+              <a href="https://cloudfour.com/portland-device-lab/"
+                >Device Lab</a
+              >
+            </li>
+            <li>
+              <a href="http://cloudfour-patterns.netlify.com/">Patterns</a>
+            </li>
+          </ul>
+        </nav>
+        <hr class="Grid-cell u-md-hidden u-spaceTop1 u-spaceBottomNone" />
+        <p
+          class="Grid-cell u-spaceTop1 u-md-sizeFit u-md-flexAlignSelfEnd u-md-flexExpandLeft"
+        >
+          <small>&copy; 2007 - 2019 Cloud Four, Inc.</small>
+        </p>
+      </div>
+    </footer>
+    <template id="offline-message-template">
+      <div class="Message Message--warning" id="offline-message">
+        <p>
+          You seem to be offline at the moment.
+          <span class="u-hidden u-md-inlineBlock"
+            >We&rsquo;ll keep trying to connect.</span
+          >
+          <a class="u-textNoWrap" href="">Try again</a>
+        </p>
+        <button class="Message-close" onclick="this.parentElement.remove()">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            class="Icon Icon--block"
+            aria-labelledby="Message-close-title"
+          >
+            <title id="Message-close-title">Close</title>
+            <g
+              transform="rotate(45 12 12)"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"
+              stroke-linecap="round"
+            >
+              <line x1="12" y1="3" x2="12" y2="21" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+            </g>
+          </svg>
+        </button>
+      </div>
+    </template>
+  </body>
+</html>
