@@ -15,16 +15,26 @@
     <!-- <link rel="stylesheet" href="css/normalize.css"> -->
 <body>
   <h1>Progressive Web App Workshop</h1>
+  <p>Service worker registration status: <strong class="js-status">...</strong></p>
 
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
-        .then(registration => {
-          console.log('Success!!! The SW is registered to the following scope:', registration.scope);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      // Wait to register until
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            // Service worker registration was successful! :)
+            document.querySelector('.js-status').textContent = 'Succeeded :)';
+            console.log('Service worker is registered to the following scope:', registration.scope);
+          })
+          .catch(error => {
+            // Service worker registratio failed. :(
+            console.error('Service worker registration failed:', error);
+          });
+      });
+    } else {
+      // Service workers are not supported by the browser
+      document.querySelector('.js-status').textContent = 'This browser does not support service workers. :(';
     }
   </script>
 </body>
