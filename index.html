@@ -21,20 +21,24 @@
     if ('serviceWorker' in navigator) {
       // Wait to register until
       window.addEventListener('load', () => {
+        // We'll update the DOM with the service worker registration status
+        const statusElement = document.querySelector('.js-status');
+
         navigator.serviceWorker.register('/sw.js')
           .then(registration => {
             // Service worker registration was successful! :)
-            document.querySelector('.js-status').textContent = 'Succeeded :)';
+            statusElement.textContent = 'Succeeded :)';
             console.log('Service worker is registered to the following scope:', registration.scope);
           })
           .catch(error => {
             // Service worker registratio failed. :(
+            statusElement.textContent = 'The service worker failed to register. :(';
             console.error('Service worker registration failed:', error);
           });
       });
     } else {
       // Service workers are not supported by the browser
-      document.querySelector('.js-status').textContent = 'This browser does not support service workers. :(';
+      statusElement.textContent = 'This browser does not support service workers. :(';
     }
   </script>
 </body>
