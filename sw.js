@@ -40,5 +40,6 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Test, what happens if I edit files from Glitch?
   console.log('Fetch occurred');
 });
