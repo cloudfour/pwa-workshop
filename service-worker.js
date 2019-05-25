@@ -9,24 +9,29 @@ const CACHE_NAME = `my-site-cache-v${CACHE_VERSION}`;
 
 const MUST_HAVE_URLS = [
   '/',
-  '/styles/main.css',
-  '/script/main.js'
+  '/css/styles.css',
+  '/js/register-service-worker.js',
+  'images/sky-friendly-robot.svg'
 ];
 const NICE_TO_HAVE_URLS = [
-  'icon.svg'
+  'images/portland.svg'
 ];
 
-
+/**
+ * Ideal time to cache CSS, JS, images, fonts static assets
+ */
 self.addEventListener('install', event => {
   console.log('Installing');
-  // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Opened cache', cache.toString());
-        // Nice to have
+        /**
+         * If these assets fail to cache, it's okay
+         */
         cache.addAll(NICE_TO_HAVE_URLS);
-        // Must have
+        /**
+         * These assets are required 
+         */
         return cache.addAll(MUST_HAVE_URLS);
       })
       .catch(error => {
@@ -40,7 +45,5 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // Test, what happens if I edit files from Glitch?
-  // Now, can I push back to Glitch???
-  console.log('Fetch occurred');
+  console.log('Fetch occurred for:', event.request.url);
 });
