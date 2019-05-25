@@ -6,7 +6,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js')
       .then(registration => {
         // Service worker registration was successful! :)
-        console.log('Service worker is registered to the following scope:', registration.scope);
+        console.log('Service worker registered to scope:', registration.scope);
       })
       .catch(error => {
         // Service worker registratio failed. :(
