@@ -17,8 +17,8 @@
  * Edit the individual cache version to delete a specific cache.
  */
 const GLOBAL_VERSION = 1;
-const STATIC_ASSETS_CACHE_NAME = `pwa-workshop-static-assets-v${GLOBAL_VERSION + 0}`;
-const RUNTIME_CACHE_NAME = `pwa-workshop-runtime-v${GLOBAL_VERSION + 0}`;
+const STATIC_ASSETS_CACHE = `pwa-workshop-static-assets-v${GLOBAL_VERSION + 0}`;
+const RUNTIME_CACHE = `pwa-workshop-runtime-v${GLOBAL_VERSION + 0}`;
 
 const MUST_HAVE_STATIC_ASSETS = [
   '/css/styles.css',
@@ -32,30 +32,34 @@ const NICE_TO_HAVE_STATIC_ASSETS = [
 ];
 
 /**
- * Ideal time to cache CSS, JS, images, fonts static assets
+ * The service worker `install` event is an ideal time to 
+ * cache CSS, JS, image and font static assets.
  */
 self.addEventListener('install', event => {
-  console.log('Installing...');
-  event.waitUntil(
-    caches.open(STATIC_ASSETS_CACHE_NAME)
-      .then(cache => {
-        /**
-         * If these assets fail to cache, it's okay
-         */
-        cache.addAll(NICE_TO_HAVE_STATIC_ASSETS);
-        /**
-         * These assets are required 
-         */
-        return cache.addAll(MUST_HAVE_STATIC_ASSETS);
-      })
-      .catch(error => {
-        console.log('Install failed:', error);
-      })
-  );
+  console.group('Service Worker `install` Event')
+
+  event.waitUntil(async function() {
+    console.log('Attempting to add assets to the "%s" cache...', STATIC_ASSETS_CACHE );
+
+    // Open the cache
+    const cache = await caches.open(STATIC_ASSETS_CACHE);
+
+    // Install won't fail if one of these assets fails to cache
+    cache.addAll(NICE_TO_HAVE_STATIC_ASSETS)
+      .then(() => console.log('Secondary assets successfully cached!'))
+      .catch(error => console.error('Secondary assets failed to cache:', error));
+
+    // Install stops if one of these assets fails to cache
+    await cache.addAll(MUST_HAVE_STATIC_ASSETS)
+      .then(() => console.log('Primary assets successfully cached!'))
+      .catch(error => console.error('Primary assets failed to cache:', error));
+
+    console.groupEnd();
+  }());
 });
 
 self.addEventListener('activate', event => {
-  console.log('Activated');
+  console.group('Service Worker `activate` Event')
 });
 
 self.addEventListener('fetch', event => {
