@@ -11,7 +11,6 @@
 //   PROLIFIC: `old-navy-pwa-assets-prolific-v${GLOBAL_VERSION + 0}`
 // };
 
-const CACHE_REGEX = /^pwa-workshop/;
 const PWA_WORKSHOP = 'pwa-workshop';
 
 /**
@@ -19,7 +18,7 @@ const PWA_WORKSHOP = 'pwa-workshop';
  * Edit the `GLOBAL_VERSION` to delete all caches.
  * Edit the individual cache version to delete a specific cache.
  */
-const GLOBAL_VERSION = 1;
+const GLOBAL_VERSION = 2;
 const STATIC_ASSETS_CACHE = `${PWA_WORKSHOP}-static-assets-v${GLOBAL_VERSION + 0}`;
 const RUNTIME_CACHE = `${PWA_WORKSHOP}-runtime-v${GLOBAL_VERSION + 0}`;
 
@@ -72,15 +71,15 @@ self.addEventListener('activate', event => {
     // Get the names of all the existing caches.
     const cacheNames = await caches.keys();
     await Promise.all(
-      // Filter for the caches we want to delete.
+      /**
+       * Filter for the caches we want to delete.
+       * We want to make sure it's a cache we added first.
+       * Then check against the current cache version.
+       */
       cacheNames.filter(cacheName => {
-        // We want to make sure it's a cache we added.
-        return CACHE_REGEX.test(cacheName) 
-          // Then compare against the current version.
+        return /^pwa-workshop/.test(cacheName) 
           && cacheName !== STATIC_ASSETS_CACHE;
-      })
-      // We now have an array of caches to delete, so delete them.
-      .map(cacheName => {
+      }).map(cacheName => {
         console.log(`Deleting cache "${cacheName}"`);
         return caches.delete(cacheName);
       })
@@ -90,6 +89,43 @@ self.addEventListener('activate', event => {
   }());
 });
 
+/**
+ * Runtime Caching
+ * 
+ * Any assets that are not cached will be cached at runtime.
+ */
 self.addEventListener('fetch', event => {
-  console.log('Fetch occurred for:', event.request.url);
+  event.respondWith(async function() {
+    const cache = await caches.open(RUNTIME_CACHE);
+    const cachedResponse = await cache.match(event.request);
+    
+    if (cachedResponse) {
+      console.log('From Cache:', event.request.url);
+      return cachedResponse;
+    }
+
+    const networkResponse = await fetch(event.request);
+    event.waitUntil(
+      cache.put(event.request, networkResponse.clone())
+    )
+    console.log('From Network:', event.request.url);
+    return networkResponse;
+  }());
+});
+
+/**
+ * Cache-First Strategy
+ * 
+ * Check the cache first, if nothing found, 
+ * then use the network as a fallback.
+ */
+self.addEventListener('fetch', event => {
+  event.respondWith(async function() {
+    const response = await caches.match(event.request);
+
+    response && console.log('From Cache:', event.request.url);
+    !response && console.log('From Network:', event.request.url);
+
+    return response || fetch(event.request);
+  }());
 });
