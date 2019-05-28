@@ -18,9 +18,15 @@ const PWA_WORKSHOP = 'pwa-workshop';
  * Edit the `GLOBAL_VERSION` to delete all caches.
  * Edit the individual cache version to delete a specific cache.
  */
-const GLOBAL_VERSION = 2;
+const GLOBAL_VERSION = 1;
 const STATIC_ASSETS_CACHE = `${PWA_WORKSHOP}-static-assets-v${GLOBAL_VERSION + 0}`;
 const RUNTIME_CACHE = `${PWA_WORKSHOP}-runtime-v${GLOBAL_VERSION + 0}`;
+
+// Store the most current cache names. Helps to delete out-of-date caches.
+const EXPECTED_CACHES = [
+  STATIC_ASSETS_CACHE,
+  RUNTIME_CACHE
+];
 
 const MUST_HAVE_STATIC_ASSETS = [
   '/css/styles.css',
@@ -41,8 +47,6 @@ self.addEventListener('install', event => {
   console.group('Service Worker `install` Event')
 
   event.waitUntil(async function() {
-    console.log(`Attempting to add assets to the "${STATIC_ASSETS_CACHE}" cache...`);
-
     // Open the cache.
     const cache = await caches.open(STATIC_ASSETS_CACHE);
 
@@ -73,12 +77,12 @@ self.addEventListener('activate', event => {
     await Promise.all(
       /**
        * Filter for the caches we want to delete.
-       * We want to make sure it's a cache we added first.
-       * Then check against the current cache version.
+       * 1. Does the cache start with `pwa-workshop`?
+       * 2. Is it not included in the `EXPECTED_CACHES` array.
        */
       cacheNames.filter(cacheName => {
         return /^pwa-workshop/.test(cacheName) 
-          && cacheName !== STATIC_ASSETS_CACHE;
+          && !EXPECTED_CACHES.includes(cacheName);
       }).map(cacheName => {
         console.log(`Deleting cache "${cacheName}"`);
         return caches.delete(cacheName);
