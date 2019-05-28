@@ -12,6 +12,7 @@
 // };
 
 const PWA_WORKSHOP = 'pwa-workshop';
+const IMAGE_REGEX = /\.(?:png|gif|jpg|jpeg|svg|webp)$/;
 
 /**
  * This sets up a two-level version cache system.
@@ -44,7 +45,7 @@ const NICE_TO_HAVE_STATIC_ASSETS = [
  * cache CSS, JS, image and font static assets.
  */
 self.addEventListener('install', event => {
-  console.group('Service Worker `install` Event')
+  console.group('Service Worker `install` Event');
 
   event.waitUntil(async function() {
     // Open the cache.
@@ -76,9 +77,9 @@ self.addEventListener('activate', event => {
     const cacheNames = await caches.keys();
     await Promise.all(
       /**
-       * Filter for the caches we want to delete.
-       * 1. Does the cache start with `pwa-workshop`?
-       * 2. Is it not included in the `EXPECTED_CACHES` array.
+       * Filter for the caches we want to delete:
+       * 1. The name should start with `pwa-workshop`
+       * 2. It should not be found in the `EXPECTED_CACHES` list
        */
       cacheNames.filter(cacheName => {
         return /^pwa-workshop/.test(cacheName) 
@@ -94,42 +95,57 @@ self.addEventListener('activate', event => {
 });
 
 /**
- * Runtime Caching
- * 
- * Any assets that are not cached will be cached at runtime.
+ * Helper to know if the request is an image request
+ * @param {Object} request The event request object
+ * @returns {boolean} Is the request an image request?
+ */
+const isImageRequest = request => IMAGE_REGEX.test(request.url);
+
+/**
+ * Handle the `fetch` service worker event.
  */
 self.addEventListener('fetch', event => {
-  event.respondWith(async function() {
-    const cache = await caches.open(RUNTIME_CACHE);
-    const cachedResponse = await cache.match(event.request);
-    
-    if (cachedResponse) {
-      console.log('From Cache:', event.request.url);
-      return cachedResponse;
-    }
+  const request = event.request;
 
-    const networkResponse = await fetch(event.request);
-    event.waitUntil(
-      cache.put(event.request, networkResponse.clone())
-    )
-    console.log('From Network:', event.request.url);
-    return networkResponse;
+  /**
+   * Images
+   */
+  if (isImageRequest(request)) {
+    console.log('Image!!!', request.url);
+  }
+
+  /**
+   * For everything else, use a Cache-First strategy:
+   * 1. Look for the asset in all of the caches.
+   * 2. If a cached version is found, return the cached response.
+   * 3. If a cached version is not found, fetch from the network.
+   */
+  event.respondWith(async function() {
+    const cachedResponse = await caches.match(request);
+    return cachedResponse || fetch(request);
   }());
 });
 
 /**
- * Cache-First Strategy
+ * Runtime Caching
  * 
- * Check the cache first, if nothing found, 
- * then use the network as a fallback.
+ * Any assets that are not cached will be cached at runtime.
  */
-self.addEventListener('fetch', event => {
-  event.respondWith(async function() {
-    const response = await caches.match(event.request);
+// self.addEventListener('fetch', event => {
+//   event.respondWith(async function() {
+//     const cache = await caches.open(RUNTIME_CACHE);
+//     const cachedResponse = await cache.match(event.request);
+    
+//     if (cachedResponse) {
+//       console.log('From Cache!:', event.request.url);
+//       return cachedResponse;
+//     }
 
-    response && console.log('From Cache:', event.request.url);
-    !response && console.log('From Network:', event.request.url);
-
-    return response || fetch(event.request);
-  }());
-});
+//     const networkResponse = await fetch(event.request);
+//     event.waitUntil(
+//       cache.put(event.request, networkResponse.clone())
+//     )
+//     console.log('From Network!:', event.request.url);
+//     return networkResponse;
+//   }());
+// });
