@@ -1,18 +1,6 @@
 /**
- * This sets up a two-level version cache names.
- * Edit the GLOBAL_VERSION to purge all caches.
- * Edit the individual cache version to purge specific cache.
+ * Progressive Web App Workshop presented by Cloud Four
  */
-// const GLOBAL_VERSION = 1;
-// const CACHES = {
-//   PRECACHE: `old-navy-pwa-precache-v${GLOBAL_VERSION + 0}`,
-//   NUXT: `old-navy-pwa-assets-nuxt-v${GLOBAL_VERSION + 1}`,
-//   GAP: `old-navy-pwa-assets-gap-v${GLOBAL_VERSION + 0}`,
-//   PROLIFIC: `old-navy-pwa-assets-prolific-v${GLOBAL_VERSION + 0}`
-// };
-
-const PWA_WORKSHOP = 'pwa-workshop';
-const IMAGE_REGEX = /\.(?:png|gif|jpg|jpeg|svg|webp)$/;
 
 /**
  * This sets up a two-level version cache system.
@@ -20,25 +8,34 @@ const IMAGE_REGEX = /\.(?:png|gif|jpg|jpeg|svg|webp)$/;
  * Edit the individual cache version to delete a specific cache.
  */
 const GLOBAL_VERSION = 1;
-const STATIC_ASSETS_CACHE = `${PWA_WORKSHOP}-static-assets-v${GLOBAL_VERSION + 0}`;
-const RUNTIME_CACHE = `${PWA_WORKSHOP}-runtime-v${GLOBAL_VERSION + 0}`;
+const PWA_WORKSHOP = 'pwa-workshop';
+const CACHES = {
+  PRECACHED_ASSETS: `${PWA_WORKSHOP}-precached-assets-v${GLOBAL_VERSION + 0}`,
+  IMAGES: `${PWA_WORKSHOP}-images-v${GLOBAL_VERSION + 0}`,
+  RUNTIME: `${PWA_WORKSHOP}-runtime-v${GLOBAL_VERSION + 0}`
+};
 
-// Store the most current cache names. Helps to delete out-of-date caches.
-const EXPECTED_CACHES = [
-  STATIC_ASSETS_CACHE,
-  RUNTIME_CACHE
-];
+/**
+ * The list of assets to precache
+ * 
+ * `MUST_HAVE`: The service worker will not complete install if 
+ * these assets are not precached successfully.
+ * `NICE_TO_HAVE`: The service worker will continue even if these
+ * assets are not successfully precached.
+ */
+const PRECACHE_ASSETS = {
+  MUST_HAVE: [
+    '/css/styles.css',
+    '/scripts/main.js',
+    '/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2',
+    '/fonts/source-code-pro-v6-latin-regular.woff2'
+  ],
+  NICE_TO_HAVE: [
+    '/images/sky-friendly-robot.svg'
+  ]
+};
 
-const MUST_HAVE_STATIC_ASSETS = [
-  '/css/styles.css',
-  '/images/sky-friendly-robot.svg',
-  '/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2',
-  '/fonts/source-code-pro-v6-latin-regular.woff2',
-  '/scripts/main.js'
-];
-const NICE_TO_HAVE_STATIC_ASSETS = [
-  'images/portland.svg'
-];
+const IMAGE_REGEX = /\.(?:png|gif|jpg|jpeg|svg|webp)$/;
 
 /**
  * The service worker `install` event is an ideal time to 
@@ -49,17 +46,17 @@ self.addEventListener('install', event => {
 
   event.waitUntil(async function() {
     // Open the cache.
-    const cache = await caches.open(STATIC_ASSETS_CACHE);
+    const cache = await caches.open(CACHES.PRECACHED_ASSETS);
 
     // Install will not stop if one of these assets fails to cache.
-    cache.addAll(NICE_TO_HAVE_STATIC_ASSETS)
-      .then(() => console.log('Secondary assets successfully cached!'))
-      .catch(error => console.error('Secondary assets failed to cache:', error));
+    cache.addAll(PRECACHE_ASSETS.NICE_TO_HAVE)
+      .then(() => console.log('Optional assets successfully cached!'))
+      .catch(error => console.warn('Optional assets failed to cache:', error));
 
     // Install stops if one of these assets fails to cache.
-    await cache.addAll(MUST_HAVE_STATIC_ASSETS)
-      .then(() => console.log('Primary assets successfully cached!'))
-      .catch(error => console.error('Primary assets failed to cache:', error));
+    await cache.addAll(PRECACHE_ASSETS.MUST_HAVE)
+      .then(() => console.log('Required assets successfully cached!'))
+      .catch(error => console.warn('Required assets failed to cache:', error));
 
     console.groupEnd();
   }());
@@ -79,11 +76,11 @@ self.addEventListener('activate', event => {
       /**
        * Filter for the caches we want to delete:
        * 1. The name should start with `pwa-workshop`
-       * 2. It should not be found in the `EXPECTED_CACHES` list
+       * 2. It should not be found in the `CACHES` list
        */
       cacheNames.filter(cacheName => {
         return /^pwa-workshop/.test(cacheName) 
-          && !EXPECTED_CACHES.includes(cacheName);
+          && !Object.values(CACHES).includes(cacheName);
       }).map(cacheName => {
         console.log(`Deleting cache "${cacheName}"`);
         return caches.delete(cacheName);
@@ -106,12 +103,34 @@ const isImageRequest = request => IMAGE_REGEX.test(request.url);
  */
 self.addEventListener('fetch', event => {
   const request = event.request;
+  const requestURL = new URL(request.url);
 
-  /**
-   * Images
-   */
-  if (isImageRequest(request)) {
-    console.log('Image!!!', request.url);
+  // Local URLs
+  if (requestURL.origin === location.origin) {
+    /**
+     * Images
+     * Stale-While-Revalidate
+     */
+    if (isImageRequest(request)) {
+      event.respondWith(async function() {
+        const cachedImage = await caches.match(request);
+        if (cachedImage) {
+          console.info('Cache Fetch:', request.url);
+          return cachedImage;
+        }
+        
+        const networkImage = await fetch(request);
+        const imagesCache = await caches.open(CACHES.IMAGES);
+        event.waitUntil(
+          imagesCache.put(request, networkImage.clone())
+        );
+
+        console.info('Network Fetch:', request.url);
+        return networkImage;
+      }());
+      // Exit 
+      return;
+    }
   }
 
   /**
@@ -122,8 +141,13 @@ self.addEventListener('fetch', event => {
    */
   event.respondWith(async function() {
     const cachedResponse = await caches.match(request);
-    return cachedResponse || fetch(request);
-  }());
+    if (cachedResponse) {
+      console.info('Cache Fetch:', request.url);
+      return cachedResponse;
+    }
+    console.info('Network Fetch:', request.url);
+    return fetch(request);
+}());
 });
 
 /**
@@ -133,11 +157,11 @@ self.addEventListener('fetch', event => {
  */
 // self.addEventListener('fetch', event => {
 //   event.respondWith(async function() {
-//     const cache = await caches.open(RUNTIME_CACHE);
+//     const cache = await caches.open(RUNTIME);
 //     const cachedResponse = await cache.match(event.request);
     
 //     if (cachedResponse) {
-//       console.log('From Cache!:', event.request.url);
+//       console.log('Cache Fetch!:', event.request.url);
 //       return cachedResponse;
 //     }
 
@@ -145,7 +169,7 @@ self.addEventListener('fetch', event => {
 //     event.waitUntil(
 //       cache.put(event.request, networkResponse.clone())
 //     )
-//     console.log('From Network!:', event.request.url);
+//     console.log('Network Fetch!:', event.request.url);
 //     return networkResponse;
 //   }());
 // });
