@@ -26,9 +26,12 @@ const CACHES = {
 const PRECACHE_ASSETS = {
   MUST_HAVE: [
     '/css/styles.css',
-    '/scripts/main.js',
+    '/fonts/source-code-pro-v6-latin-regular.woff2',
+    '/fonts/source-sans-pro-v9-latin-700.woff2',
+    '/fonts/source-sans-pro-v9-latin_latin-ext-italic.woff2',
     '/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2',
-    '/fonts/source-code-pro-v6-latin-regular.woff2'
+    '/fonts/source-sans-pro-v9-subset-600.woff',
+    '/scripts/main.js'
   ],
   NICE_TO_HAVE: [
     '/images/sky-friendly-robot.svg'
