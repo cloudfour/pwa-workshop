@@ -9,7 +9,7 @@ if ('serviceWorker' in navigator) {
         console.log('Service worker registered to scope:', registration.scope);
       })
       .catch(error => {
-        // Service worker registratio failed. :(
+        // Service worker registration failed. :(
         console.error('Service worker registration failed:', error);
       });
   });
