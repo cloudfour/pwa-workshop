@@ -110,8 +110,8 @@ const isImageRequest = request => IMAGE_REGEX.test(request.url);
 const logInfo = ({ heading, fetchType, url }) => {
   const headingStyles = [
     'font-weight: bold',
-    'background: green',
-    'border: 1px solid green',
+    'background: #456bd9',
+    'border: 1px solid #456bd9',
     'color: white',
     'padding: .6em'
   ].join(';');
@@ -126,7 +126,7 @@ const logInfo = ({ heading, fetchType, url }) => {
   ].join(';');
 
   console.info(
-    `%c(${heading})%c${fetchType} Fetch%c${url}`, 
+    `%c${heading}%cFrom ${fetchType}%c${url}`, 
     headingStyles, 
     fetchTypeStyles, 
     urlStyles
@@ -191,11 +191,13 @@ self.addEventListener('fetch', event => {
    */
   event.respondWith(async function() {
     const cachedResponse = await caches.match(request);
+
     if (cachedResponse) {
-      console.info('(Fallback) Cache Fetch:', request.url);
+      logInfo({ heading: 'Fallback', fetchType: 'Cache', url: request.url });
       return cachedResponse;
     }
-    console.info('(Fallback) Network Fetch:', request.url);
+
+    logInfo({ heading: 'Fallback', fetchType: 'Network', url: request.url });
     return fetch(request);
 }());
 });
