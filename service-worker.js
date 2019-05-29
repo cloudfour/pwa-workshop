@@ -28,7 +28,10 @@ const PRECACHE_ASSETS = {
     '/css/styles.css',
     '/scripts/main.js',
     '/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2',
-    '/fonts/source-code-pro-v6-latin-regular.woff2'
+    '/fonts/source-code-pro-v6-latin-regular.woff2',
+    '/fonts/source-sans-pro-v9-subset-600.woff',
+    '/fonts/source-sans-pro-v9-latin-700.woff2',
+    '/fonts/source-sans-pro-v9-latin_latin-ext-italic.woff2'
   ],
   NICE_TO_HAVE: [
     '/images/sky-friendly-robot.svg'
