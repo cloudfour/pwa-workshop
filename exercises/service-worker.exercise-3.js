@@ -51,6 +51,13 @@ self.addEventListener('install', installEvent => {
 });
 
 /**
+ * Listen for the `activate` event
+ */
+self.addEventListener('activate', activateEvent => {
+  console.log('Activated');
+});
+
+/**
  * Listen for the `fetch` event
  */
 self.addEventListener('fetch', fetchEvent => {
