@@ -62,32 +62,51 @@ self.addEventListener('activate', activateEvent => {
 
 /**
  * Listen for the `fetch` event
+ * @see https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
+ * @see https://jakearchibald.com/2014/offline-cookbook/#putting-it-together
  */
 self.addEventListener('fetch', fetchEvent => {
-  const request = fetchEvent.request;
-  fetchEvent.respondWith(async function() {
-    try {
-      return cacheFirst(fetchEvent);
-    } catch (error) {
-      if (isImageRequest(request)) {
-        return caches.match('/images/fallback.svg');
+  const destination = fetchEvent.request.destination;
+  const requestURL = new URL(fetchEvent.request.url);
+  // Special handling for same-origin URLs only
+  if (requestURL.origin === location.origin) {
+    switch (destination) {
+      case 'document': {
+        fetchEvent.respondWith(
+          cacheFirst(fetchEvent)
+            .catch(error => caches.match('/offline.html'))
+        )
+        return;
       }
-      return caches.match('/offline.html');
+      case 'image': {
+        fetchEvent.respondWith(
+          cacheFallingBackToNetwork(fetchEvent)
+            .catch(error => caches.match('/images/fallback.svg'))
+        );
+        return;
+      }
+      case 'style':
+      case 'script': {
+        fetchEvent.respondWith(
+          cacheFirst(fetchEvent)
+        )
+        return;
+      }
+      // If an `XMLHttpRequest` or `fetch()` from the document, the
+      // `Request.destination` is an empty string, use default strategy
+      default: {
+        fetchEvent.respondWith(
+          cacheFallingBackToNetwork(fetchEvent)
+        );
+        return;
+      }
     }
-  }());
+  }
+  // A good overall default
+  fetchEvent.respondWith(
+    cacheFallingBackToNetwork(fetchEvent)
+  );
 });
-
-/**
- * Helper functions
- */
-
-/**
- * Checks if the given Request object is an image request
- * @see https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
- * @param {Request} request A fetch Request object
- * @returns {boolean} Is it an image request?
- */
-const isImageRequest = request => request.destination === 'image';
 
 /**
  * Caching strategy functions
