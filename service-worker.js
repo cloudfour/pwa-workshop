@@ -159,7 +159,7 @@ self.addEventListener('fetch', fetchEvent => {
       }
       case 'image': {
         fetchEvent.respondWith(
-          cacheFallingBackToNetwork(fetchEvent)
+          cacheFirst(fetchEvent)
             .catch(error => caches.match('/images/fallback.svg'))
         );
         return;
