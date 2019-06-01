@@ -67,23 +67,24 @@ self.addEventListener('fetch', fetchEvent => {
 });
 
 /**
- * The "Cache, falling back to network" caching strategy
+ * Caching strategy functions
+ */
+
+/**
+ * "Cache, falling back to network" caching strategy
  * @see https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
  * @param {FetchEvent} fetchEvent A fetch event object
  * @returns {Promise} Resolves to a fetch Response object
  */
 const cacheFallingBackToNetwork = async fetchEvent => {
   const request = fetchEvent.request;
-
   // Look for the request in the caches
   const cachedResponse = await caches.match(request);
-
   // If found, return the cached response
   if (cachedResponse) {
     console.log(`Fetch from cache: ${request.url}`);
     return cachedResponse;
   }
-
   // Otherwise, fetch from the network
   console.log(`Fetch from network: ${request.url}`);
   return fetch(request);
