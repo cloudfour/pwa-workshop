@@ -1,4 +1,10 @@
 /**
+ * ------------------------
+ * Configuration constants
+ * ------------------------
+ */
+
+/**
  * The name of the cache to store assets
  */
 const PWA_WORKSHOP_CACHE = `pwa-workshop-v1`;
@@ -30,8 +36,69 @@ const PRECACHE_ASSETS = {
 };
 
 /**
- * The service worker `install` event is an ideal time to 
- * cache CSS, JS, image and font static assets.
+ * ---------------------------
+ * Caching strategy functions
+ * ---------------------------
+ */
+
+/**
+ * "Cache First" caching strategy
+ * 
+ * @see https://jakearchibald.com/2014/offline-cookbook/#on-network-response
+ * @param {FetchEvent} fetchEvent A fetch event object
+ * @returns {Promise} Resolves to a fetch Response object
+ */
+const cacheFirst = async fetchEvent => {
+  const request = fetchEvent.request;
+  // Open our cache and look for a cached response
+  const cache = await caches.open(PWA_WORKSHOP_CACHE);
+  const cachedResponse = await cache.match(request);
+  if (cachedResponse) {
+    console.log(`Fetch from cache: ${request.url}`);
+    return cachedResponse;
+  }
+  // Otherwise, fetch from the network and store a copy in cache
+  const networkResponse = await fetch(request);
+  fetchEvent.waitUntil(
+    cache.put(request, networkResponse.clone())
+  );
+  // Finally return the network response
+  console.log(`Fetch from network: ${request.url}`);
+  return networkResponse;
+};
+
+/**
+ * "Cache, falling back to network" caching strategy
+ * 
+ * @see https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
+ * @param {FetchEvent} fetchEvent A fetch event object
+ * @returns {Promise} Resolves to a fetch Response object
+ */
+const cacheFallingBackToNetwork = async fetchEvent => {
+  const request = fetchEvent.request;
+  // Look for the request in the caches
+  const cachedResponse = await caches.match(request);
+  // If found, return the cached response
+  if (cachedResponse) {
+    console.log(`Fetch from cache: ${request.url}`);
+    return cachedResponse;
+  }
+  // Otherwise, fetch from the network
+  console.log(`Fetch from network: ${request.url}`);
+  return fetch(request);
+};
+
+/**
+ * ------------------------------------------
+ * Service worker event listeners & handlers
+ * ------------------------------------------
+ */
+
+/**
+ * Listen for the `install` event
+ * 
+ * The `install` event is an ideal time to cache 
+ * CSS, JS, image and font static assets.
  */
 self.addEventListener('install', installEvent => {
   console.group('Service Worker `install` Event');
@@ -62,6 +129,7 @@ self.addEventListener('activate', activateEvent => {
 
 /**
  * Listen for the `fetch` event
+ * 
  * @see https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
  * @see https://jakearchibald.com/2014/offline-cookbook/#putting-it-together
  */
@@ -107,53 +175,3 @@ self.addEventListener('fetch', fetchEvent => {
     cacheFallingBackToNetwork(fetchEvent)
   );
 });
-
-/**
- * Caching strategy functions
- */
-
-/**
- * "Cache First" caching strategy
- * @see https://jakearchibald.com/2014/offline-cookbook/#on-network-response
- * @param {FetchEvent} fetchEvent A fetch event object
- * @returns {Promise} Resolves to a fetch Response object
- */
-const cacheFirst = async fetchEvent => {
-  const request = fetchEvent.request;
-  // Open our cache and look for a cached response
-  const cache = await caches.open(PWA_WORKSHOP_CACHE);
-  const cachedResponse = await cache.match(request);
-  if (cachedResponse) {
-    console.log(`Fetch from cache: ${request.url}`);
-    return cachedResponse;
-  }
-  // Otherwise, fetch from the network and store a copy in cache
-  const networkResponse = await fetch(request);
-  fetchEvent.waitUntil(
-    cache.put(request, networkResponse.clone())
-  );
-  // Finally return the network response
-  console.log(`Fetch from network: ${request.url}`);
-  return networkResponse;
-};
-
-/**
- * "Cache, falling back to network" caching strategy
- * @see https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
- * @param {FetchEvent} fetchEvent A fetch event object
- * @returns {Promise} Resolves to a fetch Response object
- */
-const cacheFallingBackToNetwork = async fetchEvent => {
-  const request = fetchEvent.request;
-  // Look for the request in the caches
-  const cachedResponse = await caches.match(request);
-  // If found, return the cached response
-  if (cachedResponse) {
-    console.log(`Fetch from cache: ${request.url}`);
-    return cachedResponse;
-  }
-  // Otherwise, fetch from the network
-  console.log(`Fetch from network: ${request.url}`);
-  return fetch(request);
-};
-
