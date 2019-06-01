@@ -25,7 +25,7 @@ self.addEventListener('fetch', fetchEvent => {
       return response;
     } catch (error) {
       console.log('Error!!!', error);
-      return new Response('Something went wrong! :(');
+      return new Response('Something went wrong!');
     }
   }());
 });
