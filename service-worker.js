@@ -44,6 +44,12 @@ const PRECACHE_ASSETS = {
 /**
  * "Cache First" caching strategy
  * 
+ * 1. Fetch from the cache
+ *    - Return cached response if found
+ * 2. Fallback to fetch from the network
+ *    - Store a copy of the network response in the cache
+ *    - Return network response
+ * 
  * @see https://jakearchibald.com/2014/offline-cookbook/#on-network-response
  * @param {FetchEvent} fetchEvent A fetch event object
  * @returns {Promise} Resolves to a fetch Response object
@@ -69,6 +75,11 @@ const cacheFirst = async fetchEvent => {
 
 /**
  * "Cache, falling back to network" caching strategy
+ * 
+ * 1. Fetch from the cache
+ *    - Return cached response if found
+ * 2. Fallback to fetch from the network
+ *    - Return network response
  * 
  * @see https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
  * @param {FetchEvent} fetchEvent A fetch event object
