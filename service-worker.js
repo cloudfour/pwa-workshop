@@ -20,10 +20,11 @@ const PRECACHE_ASSETS = {
     '/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2',
     '/fonts/source-sans-pro-v9-subset-600.woff',
     '/scripts/main.js',
-    'offline.html',
+    '/offline.html',
     '/images/fallback.svg'
   ],
   NICE_TO_HAVE: [
+    '/images/portland.svg',
     '/images/sky-friendly-robot.svg'
   ]
 };
