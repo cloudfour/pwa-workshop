@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#f26941"/>
+  <path d="M398,302c-44.85-12.71-87.74,12.72-132.59,0V130.37c44.85,12.71,87.74-12.72,132.59,0Z" fill="#fff"/>
+  <path d="M402,302c44.85-12.71,87.74,12.72,132.59,0V130.37c-44.85,12.71-87.74-12.72-132.59,0Z" fill="#fff"/>
+  <path d="M398,310.12c-44.85-12.71-87.74,12.72-132.59,0v-4c44.85,12.71,87.74-12.71,132.59,0Z" fill="#ffe04a"/>
+  <path d="M402,310.12c44.85-12.71,87.74,12.72,132.59,0v-4c-44.85,12.71-87.74-12.71-132.59,0Z" fill="#ffe04a"/>
+  <path d="M398,318.32c-44.85-12.72-87.74,12.71-132.59,0v-4c44.85,12.71,87.74-12.72,132.59,0Z" fill="#ffa44a"/>
+  <path d="M402,318.32c44.85-12.72,87.74,12.71,132.59,0v-4c-44.85,12.71-87.74-12.72-132.59,0Z" fill="#ffa44a"/>
+  <polyline points="579 183 621 225 579 267" fill="none" stroke="#ffe04a" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
+  <polyline points="221 183 179 225 221 267" fill="none" stroke="#ffe04a" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
+</svg>

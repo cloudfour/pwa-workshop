@@ -19,7 +19,9 @@ const PRECACHE_ASSETS = {
     '/fonts/source-sans-pro-v9-latin_latin-ext-italic.woff2',
     '/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2',
     '/fonts/source-sans-pro-v9-subset-600.woff',
-    '/scripts/main.js'
+    '/scripts/main.js',
+    'offline.html',
+    '/images/fallback.svg'
   ],
   NICE_TO_HAVE: [
     '/images/sky-friendly-robot.svg'
@@ -61,14 +63,59 @@ self.addEventListener('activate', activateEvent => {
  * Listen for the `fetch` event
  */
 self.addEventListener('fetch', fetchEvent => {
-  fetchEvent.respondWith(
-    cacheFallingBackToNetwork(fetchEvent)
-  );
+  const request = fetchEvent.request;
+  fetchEvent.respondWith(async function() {
+    try {
+      return cacheFirst(fetchEvent);
+    } catch (error) {
+      if (isImageRequest(request)) {
+        return caches.match('/images/fallback.svg');
+      }
+      return caches.match('/offline.html');
+    }
+  }());
 });
+
+/**
+ * Helper functions
+ */
+
+/**
+ * Checks if the given Request object is an image request
+ * @see https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
+ * @param {Request} request A fetch Request object
+ * @returns {boolean} Is it an image request?
+ */
+const isImageRequest = request => request.destination === 'image';
 
 /**
  * Caching strategy functions
  */
+
+/**
+ * "Cache First" caching strategy
+ * @see https://jakearchibald.com/2014/offline-cookbook/#on-network-response
+ * @param {FetchEvent} fetchEvent A fetch event object
+ * @returns {Promise} Resolves to a fetch Response object
+ */
+const cacheFirst = async fetchEvent => {
+  const request = fetchEvent.request;
+  // Open our cache and look for a cached response
+  const cache = await caches.open(PWA_WORKSHOP_CACHE);
+  const cachedResponse = await cache.match(request);
+  if (cachedResponse) {
+    console.log(`Fetch from cache: ${request.url}`);
+    return cachedResponse;
+  }
+  // Otherwise, fetch from the network and store a copy in cache
+  const networkResponse = await fetch(request);
+  fetchEvent.waitUntil(
+    cache.put(request, networkResponse.clone())
+  );
+  // Finally return the network response
+  console.log(`Fetch from network: ${request.url}`);
+  return networkResponse;
+};
 
 /**
  * "Cache, falling back to network" caching strategy
@@ -90,27 +137,3 @@ const cacheFallingBackToNetwork = async fetchEvent => {
   return fetch(request);
 };
 
-/**
- * "Cache First" caching strategy
- * 
- * @see 
- * 
- * @param {FetchEvent} fetchEvent A fetch event object
- * @returns {Promise} Resolves to a fetch Response object
- */
-const cacheFirst = async fetchEvent => {
-  const request = fetchEvent.request;
-  // Open our cache and look for a cached response
-  const cache = await caches.open(PWA_WORKSHOP_CACHE);
-  const cachedResponse = await cache.match(request);
-  if (cachedResponse) {
-    return cachedResponse;
-  }
-  // Otherwise, fetch from the network and store a copy in cache
-  const networkResponse = await fetch(request);
-  event.waitUntil(
-    cache.put(request, networkResponse.clone())
-  );
-  // Finally return the network response
-  return networkResponse;
-};
