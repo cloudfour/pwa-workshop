@@ -22,6 +22,7 @@ const PRECACHE_ASSETS = {
     '/scripts/main.js'
   ],
   NICE_TO_HAVE: [
+    '/images/portland.svg',
     '/images/sky-friendly-robot.svg'
   ]
 };
