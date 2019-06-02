@@ -144,9 +144,7 @@ self.addEventListener('activate', activateEvent => {
     // Each cache `delete()` will return a promise, 
     // so we need to await them all using `Promise.all`
     await Promise.all(
-      // Filter for the caches we want to delete:
-      // 1. The name should start with `pwa-workshop`
-      // 2. It should not be the current cache
+      // Filter for the caches we want to delete
       cacheNames.filter(cacheName => {
         return cacheName.startsWith(PWA_WORKSHOP_PREFIX)
           && cacheName !== PWA_WORKSHOP_CACHE;
