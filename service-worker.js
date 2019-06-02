@@ -19,7 +19,7 @@ const IMAGE_REGEX = /\.(?:png|gif|jpg|jpeg|svg|webp)$/;
 /**
  * The maximum amount of cached responses to store
  */
-const MAX_CACHED_ITEMS = 4;
+const MAX_CACHED_ITEMS = 30;
 
 /**
  * The list of assets to precache
@@ -103,6 +103,9 @@ const trimCache = async () => {
     console.log('Deleting:', cachedRequest.url);
     return cache.delete(cachedRequest);
   }));
+  if (!cachedRequestsToDelete.length) {
+    console.log('No caches were trimmed');
+  }
   console.groupEnd();
 }
 
