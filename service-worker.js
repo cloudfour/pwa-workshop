@@ -136,7 +136,6 @@ self.addEventListener('install', installEvent => {
  */
 self.addEventListener('activate', activateEvent => {
   console.group('Service Worker `activate` Event');
-
   activateEvent.waitUntil(async function() {
     // Get the names of all the existing caches
     const cacheNames = await caches.keys();
@@ -154,7 +153,6 @@ self.addEventListener('activate', activateEvent => {
         return caches.delete(cacheName);
       })
     );
-
     console.groupEnd();
   }());
 });
