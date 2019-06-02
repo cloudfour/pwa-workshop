@@ -135,7 +135,28 @@ self.addEventListener('install', installEvent => {
  * Listen for the `activate` event
  */
 self.addEventListener('activate', activateEvent => {
-  console.log('Activated');
+  console.group('Service Worker `activate` Event');
+
+  activateEvent.waitUntil(async function() {
+    // Get the names of all the existing caches
+    const cacheNames = await caches.keys();
+    // Each cache `delete()` will return a promise, 
+    // so we need to await them all using `Promise.all`
+    await Promise.all(
+      // Filter for the caches we want to delete:
+      // 1. The name should start with `pwa-workshop`
+      // 2. It should not be the current cache
+      cacheNames.filter(cacheName => {
+        return /^pwa-workshop/.test(cacheName) 
+          && cacheName !== PWA_WORKSHOP_CACHE;
+      }).map(cacheName => {
+        console.log(`Deleting cache "${cacheName}"`);
+        return caches.delete(cacheName);
+      })
+    );
+
+    console.groupEnd();
+  }());
 });
 
 /**
