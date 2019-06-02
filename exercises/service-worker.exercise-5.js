@@ -69,6 +69,15 @@ const isMustHaveAsset = pathname => PRECACHE_ASSETS.MUST_HAVE.includes(pathname)
 
 /**
  * Helper function to trim the cache
+ * 
+ * The trim logic is restricted by the following rules:
+ * - the cached `Request` must be for an image
+ * - the cached `Request` must not be listed in the 
+ *   `PRECACHE_ASSETS.MUST_HAVE` list
+ * - the `MAX_CACHED_ITEMS` constant sets the maximum amount 
+ *   of cached `Request` objects to store
+ * - least recently cached `Request` objects are deleted first,
+ *   this is the default order when calling `cache.keys()`
  */
 const trimCache = async () => {
   console.group('Service Worker trimming caches');
