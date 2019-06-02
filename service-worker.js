@@ -7,7 +7,9 @@
 /**
  * The name of the cache to store assets
  */
-const PWA_WORKSHOP_CACHE = `pwa-workshop-v1`;
+const VERSION = '1';
+const PWA_WORKSHOP_PREFIX = 'pwa-workshop-v';
+const PWA_WORKSHOP_CACHE = `${PWA_WORKSHOP_PREFIX}${VERSION}`;
 
 /**
  * The list of assets to precache
@@ -146,7 +148,7 @@ self.addEventListener('activate', activateEvent => {
       // 1. The name should start with `pwa-workshop`
       // 2. It should not be the current cache
       cacheNames.filter(cacheName => {
-        return /^pwa-workshop/.test(cacheName) 
+        return cacheName.startsWith(PWA_WORKSHOP_PREFIX)
           && cacheName !== PWA_WORKSHOP_CACHE;
       }).map(cacheName => {
         console.log(`Deleting cache "${cacheName}"`);
