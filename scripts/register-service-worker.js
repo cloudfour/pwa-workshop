@@ -12,6 +12,14 @@ if ('serviceWorker' in navigator) {
         // Service worker registration failed. :(
         console.error('Service worker registration failed:', error);
       });
+    
+    // If the page has an active service worker, then send 
+    // a message to trim the caches using the `postMessage()` API
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({
+        'action': 'trimCache'
+      });
+    }
   });
 } else {
   // Service workers are not supported by the browser

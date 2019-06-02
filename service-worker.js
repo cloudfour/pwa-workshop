@@ -12,6 +12,16 @@ const PWA_WORKSHOP_PREFIX = 'pwa-workshop-v';
 const PWA_WORKSHOP_CACHE = `${PWA_WORKSHOP_PREFIX}${VERSION}`;
 
 /**
+ * Regular expression to help detect images
+ */
+const IMAGE_REGEX = /\.(?:png|gif|jpg|jpeg|svg|webp)$/;
+
+/**
+ * The maximum amount of cached responses to store
+ */
+const MAX_CACHED_ITEMS = 4;
+
+/**
  * The list of assets to precache
  * 
  * `MUST_HAVE`: The service worker will not complete install if 
@@ -36,6 +46,56 @@ const PRECACHE_ASSETS = {
     '/images/sky-friendly-robot.svg'
   ]
 };
+
+/**
+ * ------------------
+ * Utility functions
+ * ------------------
+ */
+
+/**
+ * Helper to know if the request is an image request
+ * @param {Object} request The event request object
+ * @returns {boolean} Is the request an image request?
+ */
+const isImageRequest = request => IMAGE_REGEX.test(request.url);
+
+/**
+ * Helper to check if a pathname is found in the "must have" precache list
+ * @param {string} pathname An asset pathname (e.g. `/images/foo.png`)
+ * @returns {boolean}
+ */
+const isMustHaveAsset = pathname => PRECACHE_ASSETS.MUST_HAVE.includes(pathname);
+
+/**
+ * Helper function to trim the cache
+ */
+const trimCache = async () => {
+  console.group('Service Worker trimming caches');
+  const cache = await caches.open(PWA_WORKSHOP_CACHE);
+  // Get all cached Requests
+  const cachedRequests = await cache.keys();
+  // Any cached Requests in the `cachedRequests` array with an `index`
+  // higher than the `minimumKeepIndex` should not be deleted. Helps
+  // enforce the `MAX_CACHED_ITEMS` total limit.
+  const minimumKeepIndex = cachedRequests.length - MAX_CACHED_ITEMS;
+  // Store the cached requests that should be deleted
+  const cachedRequestsToDelete = cachedRequests
+    .filter((cachedRequest, index) => {
+      // Don't delete "must have" assets from the precache list
+      return !isMustHaveAsset(new URL(cachedRequest.url).pathname) 
+        // Only delete images
+        && isImageRequest(cachedRequest)
+        // The `index` should not be in the "keep" range
+        && index < minimumKeepIndex;
+    });
+  // We await an array of `cache.delete()` promises until they are all resolved
+  await Promise.all(cachedRequestsToDelete.map(cachedRequest => {
+    console.log('Deleting:', cachedRequest.url);
+    return cache.delete(cachedRequest);
+  }));
+  console.groupEnd();
+}
 
 /**
  * ---------------------------
@@ -106,6 +166,19 @@ const cacheFallingBackToNetwork = async fetchEvent => {
  * Service worker event listeners & handlers
  * ------------------------------------------
  */
+
+/**
+ * Listen for the `message` event
+ * 
+ * The Document and service worker can communicate with 
+ * each other through the `postMessage()` API
+ */
+self.addEventListener('message', messageEvent => {
+  // Check the received `action` value from the Document
+  if (messageEvent.data.action === 'trimCache') {
+    trimCache();
+  }
+});
 
 /**
  * Listen for the `install` event
