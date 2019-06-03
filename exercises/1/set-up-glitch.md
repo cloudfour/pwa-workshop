@@ -1,6 +1,6 @@
 # Progressive Web App Workshop, Exercise 1
 
-- [Back to Exercise 1](README.md)
+- [Return to Exercise 1](README.md)
 
 ## Set up your Glitch development environment
 
@@ -19,3 +19,7 @@
 1. Launch your new project, it's now live!
 
     ![glitch-01-launch-app](https://user-images.githubusercontent.com/459757/58777494-6698a300-8583-11e9-9ce7-7fd2b4de5b06.gif)
+
+---
+
+- [Return to Exercise 1](README.md)

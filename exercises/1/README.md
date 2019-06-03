@@ -6,7 +6,7 @@
 
 - [How to register a service worker](#register-a-service-worker)
 
-- How to [create a basic service worker](#create-a-basic-service-worker) that has a `console.log` for each of the `install`, `activate` and `fetch` events.
+- [How to create a basic service worker that has a `console.log` for each of the `install`, `activate` and `fetch` events](#create-a-basic-service-worker)
 
 ## What you'll need
 
