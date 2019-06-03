@@ -24,6 +24,11 @@
 
     ![glitch-01-rename-project](https://user-images.githubusercontent.com/459757/58775958-10c0fc80-857d-11e9-84fd-868d6fbcce4f.gif)
 
+1. Launch your new project, it's now live!
+
+    ![glitch-01-launch-app](https://user-images.githubusercontent.com/459757/58777494-6698a300-8583-11e9-9ce7-7fd2b4de5b06.gif)
+
+
 ### Register a service worker
 
 1. Open the `scripts/register-service-worker.js` JavaScript file
