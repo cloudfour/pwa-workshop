@@ -14,11 +14,11 @@
 
 ## Set up your local web server
 
-### Web Server for Chrome
+### Web Server for Chrome (preferred option)
 
 @TODO Write install steps for **Web Server for Chrome**
 
-### Glitch
+### Glitch (alternative option)
 
 As an alternative, you can set up the project using Glitch, see: [`exercises/1/set-up-glitch.md`](/exercises/1/set-up-glitch.md)
 
