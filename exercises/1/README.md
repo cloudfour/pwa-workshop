@@ -2,7 +2,7 @@
 
 ## What you'll learn
 
-- How to set up your local development environment
+- How to set up your local web server
 
 - How to register a service worker
 
@@ -12,16 +12,14 @@
 
 - Google Chrome browser: https://www.google.com/chrome/
 
-## Instructions
-
-### Set up local web server
+## Set up your local web server
 
 @TODO Write install steps for **Web Server for Chrome**
 
 As an alternative, you can set up the project using Glitch, see: [`exercises/1/set-up-glitch.md`](/exercises/1/set-up-glitch.md)
 
 
-### Register a service worker
+## Register a service worker
 
 1. Open the `scripts/register-service-worker.js` JavaScript file
 
@@ -33,7 +31,7 @@ As an alternative, you can set up the project using Glitch, see: [`exercises/1/s
 
     - https://developers.google.com/web/fundamentals/primers/service-workers/#register_a_service_worker
 
-### Create a basic service worker
+## Create a basic service worker
 
 1. Open the `/service-worker.js` JavaScript file
 
