@@ -27,7 +27,7 @@ As an alternative, you can set up the project using Glitch, see: [`exercises/1/s
 
 2. Register the service worker
 
-    - See [`exercises/1/register-service-worker.1.js`](/exercises/1/register-service-worker.1.js) for the completed JavaScript code
+    - See [`exercises/1/register-service-worker.1.js`](register-service-worker.1.js) for the completed JavaScript code
 
     Learn more:
 
@@ -39,7 +39,7 @@ As an alternative, you can set up the project using Glitch, see: [`exercises/1/s
 
 2. Add `install`, `activate` and `fetch` event listeners
 
-    - See [`exercises/1/service-worker.1.js`](/exercises/1/service-worker.1.js) for the completed JavaScript code
+    - See [`exercises/1/service-worker.1.js`](service-worker.1.js) for the completed JavaScript code
 
 ## Resources
 
