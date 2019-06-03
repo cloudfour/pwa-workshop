@@ -10,7 +10,7 @@
 
 ## What you'll need
 
-- Google Chrome browser
+- Google Chrome browser: https://www.google.com/chrome/
 
 ## Instructions
 

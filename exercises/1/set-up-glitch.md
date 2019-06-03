@@ -1,6 +1,6 @@
 # Progressive Web App Workshop, Exercise 1
 
-- [Back to Exercise 1](/exercises/1/README.md)
+- [Back to Exercise 1](README.md)
 
 ## Set up your Glitch development environment
 
