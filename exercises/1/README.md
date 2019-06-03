@@ -2,11 +2,11 @@
 
 ## What you'll learn
 
-- How to set up your local web server
+- [How to set up your local web server](#set-up-your-local-web-server)
 
-- How to register a service worker
+- [How to register a service worker](#register-a-service-worker)
 
-- How to create a basic service worker that has a `console.log` for each of the `install`, `activate` and `fetch` events.
+- How to [create a basic service worker](#create-a-basic-service-worker) that has a `console.log` for each of the `install`, `activate` and `fetch` events.
 
 ## What you'll need
 
