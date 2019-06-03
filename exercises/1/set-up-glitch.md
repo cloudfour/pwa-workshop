@@ -20,6 +20,10 @@
 
     ![glitch-01-launch-app](https://user-images.githubusercontent.com/459757/58777494-6698a300-8583-11e9-9ce7-7fd2b4de5b06.gif)
 
+## Learning Resources
+
+- https://glitch.com/about/features/
+
 ---
 
 - [Return to Exercise 1](README.md)

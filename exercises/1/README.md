@@ -43,7 +43,6 @@ As an alternative, you can set up the project using Glitch, see: [`exercises/1/s
 
     - See [`exercises/1/service-worker.1.js`](service-worker.1.js) for the completed JavaScript code
 
-## Resources
+## Learning Resources
 
 - https://developers.google.com/web/fundamentals/primers/service-workers/
-- https://glitch.com/about/features/
