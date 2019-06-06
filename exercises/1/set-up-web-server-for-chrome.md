@@ -1,4 +1,4 @@
-# Progressive Web App Workshop, Exercise 1
+# Progressive Web App Workshop
 
 - [Return to Exercise 1](README.md)
 
@@ -42,11 +42,6 @@
 
     <img width="527" alt="" src="https://user-images.githubusercontent.com/459757/58899063-dce6f380-86b0-11e9-9bdd-71d45309df86.png">
     <img width="880" alt="Progressive Web App Workshop landing page" src="https://user-images.githubusercontent.com/459757/58899279-61d20d00-86b1-11e9-8470-43fed46da356.png">
-
-## Learning Resources
-
-- TODO Add links
-
 
 ---
 
