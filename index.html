@@ -1,23 +1,428 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
     <title>Progressive Web App Workshop</title>
+    <meta name="description" content="A progressive web app workshop presented by Cloud Four" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#456BD9" />
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <!-- TODO: What is this? Do research. -->
+    <!-- <link rel="mask-icon" href="https://29comwzoq712ml5vj5gf479x-wpengine.netdna-ssl.com/safari-pinned-tab.svg" color="#456BD9"> -->
 
-    <meta name="description" content="A Progressive Web App workshop presented by Cloud Four">
-    <meta name"author" content="Cloud Four">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-    <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <!-- <link rel="apple-touch-icon" href="icon.png"> -->
-    <!-- Place favicon.ico in the root directory -->
-  
-    <!-- <link rel="stylesheet" href="css/normalize.css"> -->
-</head>
-<body>
-  <h1>Progressive Web App Workshop</h1>
-  <p>Service worker registration status: <strong class="js-status">...</strong></p>
-  <script defer src="/scripts/main.js"></script>
-  <script defer src="/scripts/register-service-worker.js"></script>
-</body>
+    <link
+      rel="preload"
+      as="font"
+      href="/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      /**
+       * Regular font -- contains latin and extended latin characters.
+       */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-display: swap;
+        src: local('Source Sans Pro'), local('SourceSansPro-Regular'),
+          url('/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff2')
+            format('woff2'),
+          url('/fonts/source-sans-pro-v9-latin_latin-ext-regular.woff')
+            format('woff');
+      }
+
+      /**
+       * Italic font -- contains latin characters.
+       */
+          @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: italic;
+        font-display: swap;
+        src: local('Source Sans Pro Italic'), local('SourceSansPro-It'),
+          url('/fonts/source-sans-pro-v9-latin_latin-ext-italic.woff2')
+            format('woff2'),
+          url('/fonts/source-sans-pro-v9-latin_latin-ext-italic.woff')
+            format('woff');
+      }
+
+      /**
+       * Semibold font -- contains subset characters only.
+       */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-weight: 600;
+        font-display: swap;
+        src: local('Source Sans Pro Semibold'), local('SourceSansPro-Semibold'),
+          url('/fonts/source-sans-pro-v9-subset-600.woff')
+            format('woff');
+      }
+
+      /**
+       * Bold font -- contains latin characters.
+       */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-weight: 700;
+        font-display: swap;
+        src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'),
+          url('/fonts/source-sans-pro-v9-latin-700.woff2')
+            format('woff2'),
+          url('/fonts/source-sans-pro-v9-latin-700.woff')
+            format('woff');
+      }
+
+      /**
+       * Monospace font -- contains latin characters.
+       */
+      @font-face {
+        font-family: 'Source Code Pro';
+        font-display: swap;
+        src: local('Source Code Pro'), local('SourceCodePro-Regular'),
+          url('/fonts/source-code-pro-v6-latin-regular.woff2')
+            format('woff2'),
+          url('/fonts/source-code-pro-v6-latin-regular.woff')
+            format('woff');
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      id="toolkit-css"
+      href="/css/styles.css"
+      type="text/css"
+      media="all"
+    />
+    <link rel="manifest" href="/manifest.json" />
+    <script defer src="/scripts/main.js"></script>
+    <script defer src="/scripts/register-service-worker.js"></script>
+  </head>
+
+  <body>
+    <div class="Sky">
+      <div class="u-containSpread">
+        <header class="Sky-nav" role="banner">
+          <ul class="Sky-nav-controls">
+            <li>
+              <a 
+                class="Sky-nav-controls-skipToMain Button Button--defaultDark u-textNoWrap u-hiddenTillFocus" 
+                href="#main"
+              >Skip to main content</a>
+            </li>
+            <li>
+              <a
+                class="Sky-nav-controls-skipToMenu Button Button--defaultDark"
+                href="#menu"
+                aria-label="Skip to navigation"
+              >Menu</a>
+            </li>
+          </ul>
+
+          <a class="Sky-nav-logo" href="/">
+            <svg
+              viewBox="0 0 24 24"
+              width="80"
+              height="80"
+              class="Sky-nav-logo-object"
+              role="img"
+              aria-labelledby="logo-title"
+            >
+              <title id="logo-title">Cloud Four</title>
+              <path
+                d="M6.75,15.12a4.36,4.36,0,0,1-1.91-2.29,1.86,1.86,0,0,1,.52-1c0.48-.55,6.07-6.63,8.44-7.67A11.75,11.75,0,0,0,11.92,4c-7,0-7.67,5-7.67,5S0,10.3,0,14.18C0,19.73,6.84,20,6.84,20A15.3,15.3,0,0,0,9,19.92a1.29,1.29,0,0,0,.89-0.71c0.41-1,1-2.59,1.58-4.26C9.2,15.06,7,15.17,6.75,15.12Z"
+              />
+              <path
+                d="M24,13c0-4.91-4.81-5.44-4.81-5.44a6.11,6.11,0,0,0-2.14-2.2c-0.43,1.53-1.54,5.61-1.6,6.38h1.68s0.27,0,.2.33c-0.16.75-.58,2.58-1.48,2.64l-1.18.07c-0.33,1.35-.68,2.76-0.93,3.78a4.7,4.7,0,0,0,3,.91,4.59,4.59,0,0,0,3.35-1.23C24.14,17.56,24,13,24,13Z"
+              />
+              <path
+                d="M13.89,6.86A42.33,42.33,0,0,0,8.9,12l3.61-.14c0.74-2.08,1.38-3.93,1.66-4.74A0.3,0.3,0,0,0,13.89,6.86Z"
+              />
+            </svg>
+          </a>
+
+          <nav class="Sky-nav-menu" role="navigation" id="menu">
+            <ul class="Sky-nav-menu-items">
+              <li>
+                <a class="Sky-nav-menu-item" href="/">Home</a>
+              </li>
+              <li>
+                <a class="Sky-nav-menu-item" href="/page-1.html">Page 1</a>
+              </li>
+              <li>
+                <a class="Sky-nav-menu-item" href="/page-2.html">Page 2</a>
+              </li>
+              <li>
+                <a class="Sky-nav-menu-item" href="/page-3.html">Page 3</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <main role="main" id="main">
+      <div class="Sky Sky--clouds">
+        <div class="u-containSpread">
+          <div class="Grid Grid--alignMiddle u-spaceBottom1">
+            <div class="Grid-cell u-md-size1of2 u-padSides1 u-padBottom1 u-md-padTop1">
+              <h1 class="u-textGrow4 u-md-textGrow6 u-spaceRight1">
+                Progressive Web App Workshop
+              </h1>
+              <p class="u-textGrow1">
+                Presented by Cloud Four
+              </p>
+            </div>
+            <div class="Grid-cell u-md-size1of2 u-padSides1 u-md-padSidesNone u-md-flexOrderLast u-textCenter">
+              <img
+                class="u-limitHeight2of3"
+                src="/images/sky-friendly-robot.svg"
+                alt=""
+                style="width: 21.25em; height: 15.625em;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="u-bgWhite">
+        <article class="u-containProse u-padSides1 u-padTop4 u-spaceItems1">
+          <header class="u-spaceItems01">
+            <h1 class="u-textGrow3 u-md-textGrow4">Welcome!</h1>
+          </header>
+
+          <div class="CmsContent u-staggerItems1 u-cf">
+            <p>Thank you for joining us in today's workshop. We will be learning about Progressive Web Apps including how to:</p>
+            <ul>
+              <li>Register a service worker</li>
+              <li>Listen for and handle the service worker <code>install</code>, <code>activate</code> and <code>fetch</code> events</li>
+              <li>Use the Cache and Fetch APIs with your service worker</li>
+              <li>Handle a <code>fetch</code> event when the network is offline</li>
+              <li>Create a cache to precache a list of required and optional assets</li>
+              <li>Implement different caching strategies</li>
+              <li>Set up a fallback image and offline page</li>
+              <li>Handle different asset types to provide an appropriate caching strategy</li>
+              <li>Version caches (including purging old caches)</li>
+              <li>Write basic cache trimming logic</li>
+              <li>Set up a manifest file</li>
+              <li>Set up a basic Push Notification</li>
+            </ul>
+            
+            <!-- <div class="HashHeading HashHeading--h2">
+              <h2 id="thank-you">Thank you</h2>
+              <a href="#thank-you" aria-label="Permalink for Thank you" class="HashHeading-link">
+                <svg viewBox="0 0 24 24" width="24" height="24" class="Icon" role="presentation">
+                  <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                    <path d="M13.77,10.09l-0.71-.71a4,4,0,0,0-5.65,0L3.16,13.63a4,4,0,0,0,0,5.66l1.4,1.4a4,4,0,0,0,5.67,0l1.41-1.41"></path>
+                    <path d="M10.23,13.62l0.71,0.71a4,4,0,0,0,5.65,0l4.25-4.25a4,4,0,0,0,0-5.66L19.43,3a4,4,0,0,0-5.67,0L12.35,4.43"></path>
+                  </g>
+                </svg>
+              </a>
+            </div> -->
+            
+            <p>Thank you for giving us the opportunity to share with you. We are happy and excited to be here!</p>
+          </div>
+
+          <footer class="u-spaceTop4">
+            <div class="u-cf u-bgGray u-pad1 u-pullSides1">
+              <img 
+                class="Thumbnail Thumbnail--circle u-floatRight u-spaceLeft"
+                src="/images/jason-75x75-c-default.png" 
+                alt="Jason Grigsby" 
+                width="75" 
+                height="75" 
+                srcset="/images/jason-150x150-c-default.png 2x">
+              <p><strong>Jason Grigsby</strong> is one of the co-founders of Cloud Four, Mobile Portland and Responsive Field Day. He is the author of <a href="https://abookapart.com/products/progressive-web-apps">Progressive Web Apps</a> from A Book Apart. Follow him at <a href="https://twitter.com/grigs">@grigs</a>.</p>
+            </div>
+            <div class="u-cf u-bgGray u-pad1 u-pullSides1">
+              <img 
+                class="Thumbnail Thumbnail--circle u-floatRight u-spaceLeft"
+                src="/images/gerardo-r2-75x75-c-default.png" 
+                alt="Gerardo Rodriguez" 
+                width="75" 
+                height="75" 
+                srcset="/images/gerardo-r2-150x150-c-default.png 2x">
+              <p><strong>Gerardo Rodriguez</strong> is a developer driven by curiosity and the love of learning. His experience with art, design, and development make him a well-rounded maker of things on the web. You’ll find him sharing some thoughts and resources on Twitter via <a href="https://twitter.com/_gerardo">@_gerardo</a>.</p>
+            </div>
+          </footer>
+        </article>
+        <div class="u-containSpread">
+          <div class="u-posRelative">
+            <p class="u-md-padEnds5 u-pad1 u-size2of3 u-sm-padEnds4">
+              <span class="u-inlineBlock u-textGrow1 u-spaceRight">
+                Crafted with love from Portland, Oregon.
+              </span>
+            </p>
+            <img class="u-posAbsoluteBottomRight u-size2of5 u-sm-size1of3 u-sm-spaceRight1 u-md-size1of4" src="/images/portland.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      class="u-containSpread u-padSides1 u-padTop2 u-padBottom3"
+      role="contentinfo"
+    >
+      <div class="Grid u-posRelative">
+        <div class="Grid-cell u-sm-size1of2 u-md-size1of3">
+          <p>
+            <a href="https://cloudfour.com"><strong>Cloud Four, Inc.</strong></a>
+          </p>
+          <p>
+            510 SW 3rd Ave, Suite 420<br />
+            Portland, Oregon 97204 USA
+          </p>
+          <ul class="u-listUnstyled">
+            <li><a href="mailto:info@cloudfour.com">info@cloudfour.com</a></li>
+            <li><a href="tel:15032901090">+1 503.290.1090</a></li>
+          </ul>
+          <ul class="u-listInline u-spaceTop1 u-md-spaceTopNone u-md-posAbsoluteTopRight">
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://twitter.com/cloudfour"
+                title="Follow @cloudfour on Twitter"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M24,4.31a9.85,9.85,0,0,1-2.83.78,4.94,4.94,0,0,0,2.17-2.72,9.86,9.86,0,0,1-3.13,1.19A4.93,4.93,0,0,0,11.82,8,14,14,0,0,1,1.67,2.9,4.93,4.93,0,0,0,3.19,9.48,4.9,4.9,0,0,1,1,8.86V8.92a4.93,4.93,0,0,0,3.95,4.83,4.94,4.94,0,0,1-2.22.08,4.93,4.93,0,0,0,4.6,3.42,9.88,9.88,0,0,1-6.12,2.11A10,10,0,0,1,0,19.29,13.94,13.94,0,0,0,7.55,21.5a13.91,13.91,0,0,0,14-14q0-.32,0-0.64A10,10,0,0,0,24,4.31"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://www.facebook.com/cloudfourweb/"
+                title="Like Cloud Four on Facebook"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M21.79,1H2.21A1.21,1.21,0,0,0,1,2.21V21.79A1.21,1.21,0,0,0,2.21,23H12.75V14.48H9.88V11.16h2.87V8.71A4,4,0,0,1,17,4.32a23.52,23.52,0,0,1,2.56.13v3H17.83A1.38,1.38,0,0,0,16.18,9v2.12h3.29L19,14.48H16.18V23h5.61A1.21,1.21,0,0,0,23,21.79V2.21A1.21,1.21,0,0,0,21.79,1Z"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://www.instagram.com/cloudfourpdx/"
+                title="Follow @cloudfourpdx on Instagram"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M12,2.16c3.2,0,3.58,0,4.85.07a6.64,6.64,0,0,1,2.23.41,3.72,3.72,0,0,1,1.38.9,3.72,3.72,0,0,1,.9,1.38,6.64,6.64,0,0,1,.41,2.23c0.06,1.27.07,1.64,0.07,4.85s0,3.58-.07,4.85a6.64,6.64,0,0,1-.41,2.23,4,4,0,0,1-2.28,2.28,6.64,6.64,0,0,1-2.23.41c-1.27.06-1.64,0.07-4.85,0.07s-3.58,0-4.85-.07a6.64,6.64,0,0,1-2.23-.41,3.72,3.72,0,0,1-1.38-.9,3.72,3.72,0,0,1-.9-1.38,6.64,6.64,0,0,1-.41-2.23C2.17,15.58,2.16,15.2,2.16,12s0-3.58.07-4.85a6.64,6.64,0,0,1,.41-2.23,3.72,3.72,0,0,1,.9-1.38,3.72,3.72,0,0,1,1.38-.9,6.64,6.64,0,0,1,2.23-.41C8.42,2.17,8.8,2.16,12,2.16M12,0C8.74,0,8.33,0,7.05.07A8.81,8.81,0,0,0,4.14.63,5.88,5.88,0,0,0,2,2,5.88,5.88,0,0,0,.63,4.14,8.81,8.81,0,0,0,.07,7.05C0,8.33,0,8.74,0,12s0,3.67.07,4.95a8.81,8.81,0,0,0,.56,2.91A5.88,5.88,0,0,0,2,22a5.88,5.88,0,0,0,2.13,1.38,8.81,8.81,0,0,0,2.91.56C8.33,24,8.74,24,12,24s3.67,0,4.95-.07a8.81,8.81,0,0,0,2.91-.56,6.14,6.14,0,0,0,3.51-3.51,8.81,8.81,0,0,0,.56-2.91C24,15.67,24,15.26,24,12s0-3.67-.07-4.95a8.81,8.81,0,0,0-.56-2.91A5.88,5.88,0,0,0,22,2,5.88,5.88,0,0,0,19.86.63,8.81,8.81,0,0,0,16.95.07C15.67,0,15.26,0,12,0h0Z"
+                  />
+                  <path
+                    d="M12,5.84A6.16,6.16,0,1,0,18.16,12,6.16,6.16,0,0,0,12,5.84ZM12,16a4,4,0,1,1,4-4A4,4,0,0,1,12,16Z"
+                  />
+                  <circle cx="18.41" cy="5.59" r="1.44" />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://github.com/cloudfour"
+                title="Cloud Four's repositories on GitHub"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M0,12A12,12,0,0,0,8.21,23.39,0.6,0.6,0,0,0,9,22.81c0-.29,0-1,0-2-3.34.72-4-1.61-4-1.61A3.18,3.18,0,0,0,3.63,17.4c-1.09-.74.08-0.73,0.08-0.73a2.52,2.52,0,0,1,1.84,1.24,2.56,2.56,0,0,0,3.49,1,2.57,2.57,0,0,1,.76-1.6C7.14,17,4.34,16,4.34,11.37A4.64,4.64,0,0,1,5.58,8.15,4.32,4.32,0,0,1,5.7,5s1-.32,3.3,1.23a11.38,11.38,0,0,1,6,0C17.3,4.65,18.3,5,18.3,5a4.31,4.31,0,0,1,.12,3.18,4.63,4.63,0,0,1,1.23,3.22c0,4.61-2.81,5.62-5.48,5.92A2.86,2.86,0,0,1,15,19.52c0,1.6,0,2.9,0,3.29a0.6,0.6,0,0,0,.83.58A12,12,0,1,0,0,12Z"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                class="u-textGrow1"
+                href="https://www.linkedin.com/company/cloud-four"
+                title="Follow Cloud Four on LinkedIn"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  class="Icon Icon--large"
+                  role="img"
+                >
+                  <path
+                    d="M21.37,1H2.62A1.61,1.61,0,0,0,1,2.59V21.41A1.61,1.61,0,0,0,2.62,23H21.37A1.61,1.61,0,0,0,23,21.41V2.59A1.61,1.61,0,0,0,21.37,1ZM7.53,19.75H4.26V9.25H7.53v10.5ZM5.89,7.81A1.89,1.89,0,1,1,7.79,5.92,1.89,1.89,0,0,1,5.89,7.81ZM19.75,19.75H16.48V14.64c0-1.22,0-2.78-1.7-2.78s-2,1.33-2,2.7v5.19H9.57V9.25H12.7v1.44h0A3.43,3.43,0,0,1,15.83,9c3.3,0,3.91,2.17,3.91,5v5.76Z"
+                  />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <hr class="Grid-cell u-sm-hidden u-spaceTop1 u-spaceBottomNone" />
+        <p class="Grid-cell u-spaceTop1 u-md-sizeFit u-md-flexAlignSelfEnd u-md-flexExpandLeft">
+          <small>&copy; 2007 - 2019 Cloud Four, Inc.</small>
+        </p>
+      </div>
+    </footer>
+
+    <template id="offline-message-template">
+      <div class="Message Message--warning" id="offline-message">
+        <p>
+          You seem to be offline at the moment.
+          <span class="u-hidden u-md-inlineBlock">We&rsquo;ll keep trying to connect.</span>
+          <a class="u-textNoWrap" href="">Try again</a>
+        </p>
+        <button class="Message-close" onclick="this.parentElement.remove()">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            class="Icon Icon--block"
+            aria-labelledby="Message-close-title"
+          >
+            <title id="Message-close-title">Close</title>
+            <g
+              transform="rotate(45 12 12)"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"
+              stroke-linecap="round"
+            >
+              <line x1="12" y1="3" x2="12" y2="21" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+            </g>
+          </svg>
+        </button>
+      </div>
+    </template>
+  </body>
 </html>

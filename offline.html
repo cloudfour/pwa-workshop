@@ -149,9 +149,12 @@
               />
             </svg>
           </a>
-          <!-- TODO: Do we keep any links here? Probably yes but linked to our workshop pages instead. -->
+
           <nav class="Sky-nav-menu" role="navigation" id="menu">
             <ul class="Sky-nav-menu-items">
+              <li>
+                <a class="Sky-nav-menu-item" href="/">Home</a>
+              </li>
               <li>
                 <a class="Sky-nav-menu-item" href="/page-1.html">Page 1</a>
               </li>
@@ -161,18 +164,6 @@
               <li>
                 <a class="Sky-nav-menu-item" href="/page-3.html">Page 3</a>
               </li>
-              <!-- <li>
-                <a class="Sky-nav-menu-item" href="/thinks/">Articles</a>
-              </li>
-              <li>
-                <a class="Sky-nav-menu-item" href="/presents/">Speaking</a>
-              </li>
-              <li>
-                <a class="Sky-nav-menu-item" href="/contributes/">Labs</a>
-              </li>
-              <li>
-                <a class="Sky-nav-menu-item" href="/is/">Team</a>
-              </li> -->
             </ul>
           </nav>
         </header>
@@ -185,48 +176,94 @@
           <div class="Grid Grid--alignMiddle u-spaceBottom1">
             <div class="Grid-cell u-md-size1of2 u-padSides1 u-padBottom1 u-md-padTop1">
               <h1 class="u-textGrow5 u-sm-textGrow6 u-spaceRight1">
-                Progressive Web App Workshop
+                Offline
               </h1>
-              <p class="u-textGrow1">
-                Presented by Cloud Four
-              </p>
-            </div>
-            <div class="Grid-cell u-md-size1of2 u-padSides1 u-md-padSidesNone u-md-flexOrderLast u-textCenter">
-              <img
-                class="u-limitHeight2of3"
-                src="/images/sky-friendly-robot.svg"
-                alt=""
-                style="width: 21.25em; height: 15.625em;"
-              />
             </div>
           </div>
         </div>
       </div>
       <div class="u-bgWhite">
-        <article class="u-containProse u-padSides1 u-padEnds4 u-spaceItems1">
-          <header class="u-spaceItems01">
-            <h1 class="u-textGrow3 u-md-textGrow4">
-              Offline
-            </h1>
-          </header>
-
+        <article class="u-containProse u-padSides1 u-padTop4 u-spaceItems1">
           <div class="CmsContent u-staggerItems1 u-cf">
-            <p>
-              You are offline. This is the offline fallback page.
-            </p>
+            <h1>Your Device is&nbsp;Offline</h1>
+            <div class="Grid-cell u-textCenter">
+              <svg viewBox="0 0 200 200" class="wifi">
+                <path class="wifi-bar" d="M100,45c30.7,0,58.8,11.2,80.6,29.7l9.4-11.1c-24.3-20.7-55.7-33.2-90-33.2c-34.3,0-65.7,12.6-90,33.2l9.4,11.1
+                C41.2,56.3,69.3,45,100,45z"></path>
+                <path class="wifi-bar" d="M100,80.4c22,0,42.1,8,57.7,21.3l9.4-11.1C149,75.1,125.6,65.8,100,65.8c-25.6,0-49,9.4-67.1,24.8l9.4,11.1
+                C57.9,88.4,78,80.4,100,80.4z"></path>
+                <path class="wifi-bar" d="M100,118.5c12.6,0,24.1,4.6,33,12.2l9.4-11.1c-11.5-9.8-26.3-15.7-42.5-15.7c-16.2,0-31,5.9-42.5,15.7l9.4,11.1
+                C75.9,123.1,87.4,118.5,100,118.5z"></path>
+                <path class="wifi-bar" d="M118.8,147.4c-5.1-4.3-11.6-7-18.8-7c-7.2,0-13.7,2.7-18.8,7l18.8,22.1L118.8,147.4z"></path>
+              </svg>
+            </div>
           </div>
+
+          <style>
+            .wifi {
+              fill: #456bd9;
+              max-width: 200px;
+              display: inline-block;
+            }
+        
+            .wifi-bar {
+              animation: loseconnection 0.5s infinite;
+              animation-iteration-count: 1;
+              animation-fill-mode: forwards;
+            }
+        
+            .wifi-bar:nth-of-type(1) {
+              animation-delay: 1s;
+            }
+        
+            .wifi-bar:nth-of-type(2) {
+              animation-delay: 2s;
+            }
+        
+            .wifi-bar:nth-of-type(3) {
+              animation-delay: 3s;
+            }
+        
+            .wifi-bar:nth-of-type(4) {
+              animation-delay: 4s;
+            }
+        
+            @keyframes loseconnection {
+              100% {
+                fill: #dbe5ea;
+              }
+            }
+          </style>
+
+          <footer class="u-spaceTop4">
+            <div class="u-cf u-bgGray u-pad1 u-pullSides1">
+              <img 
+                class="Thumbnail Thumbnail--circle u-floatRight u-spaceLeft"
+                src="/images/jason-75x75-c-default.png" 
+                alt="Jason Grigsby" 
+                width="75" 
+                height="75" 
+                srcset="/images/jason-150x150-c-default.png 2x">
+              <p><strong>Jason Grigsby</strong> is one of the co-founders of Cloud Four, Mobile Portland and Responsive Field Day. He is the author of <a href="https://abookapart.com/products/progressive-web-apps">Progressive Web Apps</a> from A Book Apart. Follow him at <a href="https://twitter.com/grigs">@grigs</a>.</p>
+            </div>
+            <div class="u-cf u-bgGray u-pad1 u-pullSides1">
+              <img 
+                class="Thumbnail Thumbnail--circle u-floatRight u-spaceLeft"
+                src="/images/gerardo-r2-75x75-c-default.png" 
+                alt="Gerardo Rodriguez" 
+                width="75" 
+                height="75" 
+                srcset="/images/gerardo-r2-150x150-c-default.png 2x">
+              <p><strong>Gerardo Rodriguez</strong> is a developer driven by curiosity and the love of learning. His experience with art, design, and development make him a well-rounded maker of things on the web. You’ll find him sharing some thoughts and resources on Twitter via <a href="https://twitter.com/_gerardo">@_gerardo</a>.</p>
+            </div>
+          </footer>
         </article>
         <div class="u-containSpread">
-          <hr class="u-space1 u-spaceBottomNone">
           <div class="u-posRelative">
-            <p class="u-pad1 u-size2of3">
-              <span class="u-inlineBlock u-textGrow1 u-spaceRight u-textNoWrap">
-                Let’s discuss your project!
+            <p class="u-md-padEnds5 u-pad1 u-size2of3 u-sm-padEnds4">
+              <span class="u-inlineBlock u-textGrow1 u-spaceRight">
+                Crafted with love from Portland, Oregon.
               </span>
-              <a class="Button Button--primary u-spaceEnds01 u-textNoWrap" href="mailto:info@cloudfour.com">
-                <svg viewBox="0 0 24 24" width="24" height="24" class="Icon Icon--large u-spaceRight06" role="presentation"><path d="M0,5c0-1.1,0.9-2,2-2h20c1.1,0,2,0.9,2,2v2c0,0-7.9,5-12,5C8.1,12,0,7,0,7V5z"></path><path d="M24,17c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V9c0,0,7.9,5,12,5c3.9,0,12-5,12-5V17z"></path></svg>
-                Email Us
-              </a>
             </p>
             <img class="u-posAbsoluteBottomRight u-size2of5 u-sm-size1of3 u-sm-spaceRight1 u-md-size1of4" src="/images/portland.svg" alt="">
           </div>
@@ -234,7 +271,6 @@
       </div>
     </main>
 
-    <!-- TODO: Do we want the page footer? The links back to cloudfour.com might confuse people. -->
     <footer
       class="u-containSpread u-padSides1 u-padTop2 u-padBottom3"
       role="contentinfo"
@@ -355,24 +391,6 @@
           </ul>
         </div>
         <hr class="Grid-cell u-sm-hidden u-spaceTop1 u-spaceBottomNone" />
-        <nav class="Grid-cell u-spaceTop1 u-sm-spaceTopNone u-sm-size1of2 u-md-size1of3">
-          <ul class="u-listUnstyled u-columns2">
-            <li><a href="https://cloudfour.com/does/">What We Do</a></li>
-            <li><a href="https://cloudfour.com/believes/">Our Approach</a></li>
-            <li><a href="https://cloudfour.com/made/">Our Work</a></li>
-            <li><a href="https://cloudfour.com/thinks/">Articles</a></li>
-            <li><a href="https://cloudfour.com/presents/">Speaking</a></li>
-            <li><a href="https://cloudfour.com/contributes/">Labs</a></li>
-            <li><a href="https://cloudfour.com/is/">Team</a></li>
-            <li>
-              <a href="https://cloudfour.com/portland-device-lab/">Device Lab</a>
-            </li>
-            <li>
-              <a href="http://cloudfour-patterns.netlify.com/">Patterns</a>
-            </li>
-          </ul>
-        </nav>
-        <hr class="Grid-cell u-md-hidden u-spaceTop1 u-spaceBottomNone" />
         <p class="Grid-cell u-spaceTop1 u-md-sizeFit u-md-flexAlignSelfEnd u-md-flexExpandLeft">
           <small>&copy; 2007 - 2019 Cloud Four, Inc.</small>
         </p>
