@@ -94,7 +94,7 @@ const trimCache = async () => {
       && isImageRequest(cachedRequest)
     )
     // Then enforce the `MAX_CACHED_ITEMS` limit on the 
-    // cached responses array returned from the first filter()
+    // cached responses array returned from the first filter
     .filter((cachedRequest, index, filteredCachedRequests) => 
       index < filteredCachedRequests.length - MAX_CACHED_ITEMS
     );
