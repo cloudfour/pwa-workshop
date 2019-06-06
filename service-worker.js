@@ -84,25 +84,27 @@ const trimCache = async () => {
   const cache = await caches.open(PWA_WORKSHOP_CACHE);
   // Get all cached Requests
   const cachedRequests = await cache.keys();
-  // Any cached Requests in the `cachedRequests` array with an `index`
-  // higher than the `minimumKeepIndex` should not be deleted. Helps
-  // enforce the `MAX_CACHED_ITEMS` total limit.
-  const minimumKeepIndex = cachedRequests.length - MAX_CACHED_ITEMS;
   // Store the cached requests that should be deleted
   const cachedRequestsToDelete = cachedRequests
-    .filter((cachedRequest, index) => {
+    // First filter out cached responses that should not be deleted
+    .filter(cachedRequest => 
       // Don't delete "must have" assets from the precache list
-      return !isMustHaveAsset(new URL(cachedRequest.url).pathname) 
-        // Only delete images
-        && isImageRequest(cachedRequest)
-        // The `index` should not be in the "keep" range
-        && index < minimumKeepIndex;
-    });
+      !isMustHaveAsset(new URL(cachedRequest.url).pathname)
+      // Only delete images
+      && isImageRequest(cachedRequest)
+    )
+    // Then enforce the `MAX_CACHED_ITEMS` limit on the 
+    // cached responses array returned from the first filter
+    .filter((cachedRequest, index, filteredCachedRequests) => 
+      index < filteredCachedRequests.length - MAX_CACHED_ITEMS
+    );
   // We await an array of `cache.delete()` promises until they are all resolved
-  await Promise.all(cachedRequestsToDelete.map(cachedRequest => {
-    console.log('Deleting:', cachedRequest.url);
-    return cache.delete(cachedRequest);
-  }));
+  await Promise.all(
+    cachedRequestsToDelete.map(cachedRequest => {
+      console.log('Deleting:', cachedRequest.url);
+      return cache.delete(cachedRequest);
+    })
+  );
   if (!cachedRequestsToDelete.length) {
     console.log('No caches were trimmed');
   }
@@ -119,10 +121,10 @@ const trimCache = async () => {
  * "Cache First" caching strategy
  * 
  * 1. Fetch from the cache
- *    - Return cached response if found
+ *    - Return cached response if found
  * 2. Fallback to fetch from the network
- *    - Store a copy of the network response in the cache
- *    - Return network response
+ *    - Store a copy of the network response in the cache
+ *    - Return network response
  * 
  * @see https://jakearchibald.com/2014/offline-cookbook/#on-network-response
  * @param {FetchEvent} fetchEvent A fetch event object
@@ -151,9 +153,9 @@ const cacheFirst = async fetchEvent => {
  * "Cache, falling back to network" caching strategy
  * 
  * 1. Fetch from the cache
- *    - Return cached response if found
+ *    - Return cached response if found
  * 2. Fallback to fetch from the network
- *    - Return network response
+ *    - Return network response
  * 
  * @see https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
  * @param {FetchEvent} fetchEvent A fetch event object
@@ -181,8 +183,8 @@ const cacheFallingBackToNetwork = async fetchEvent => {
 
 /**
  * Listen for the `message` event
- * 
- * The Document and service worker can communicate with 
+ *
+ * The Document and service worker can communicate with
  * each other through the `postMessage()` API
  */
 self.addEventListener('message', messageEvent => {
