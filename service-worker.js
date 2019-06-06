@@ -92,7 +92,7 @@ const trimCache = async () => {
   const cachedRequestsToDelete = cachedRequests
     .filter((cachedRequest, index) => {
       // Don't delete "must have" assets from the precache list
-      return !isMustHaveAsset(new URL(cachedRequest.url).pathname) 
+      return !isMustHaveAsset(new URL(cachedRequest.url).pathname)
         // Only delete images
         && isImageRequest(cachedRequest)
         // The `index` should not be in the "keep" range
