@@ -1,4 +1,4 @@
-# Progressive Web App Workshop, Exercise 1
+# Progressive Web App Workshop
 
 - [Return to Exercise 1](README.md)
 
