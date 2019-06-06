@@ -14,7 +14,7 @@ TODO: Add exercise 5 instructions, goals & resources
 
     - See [`exercises/5/service-worker.5.js`](service-worker.5.js) for the completed JavaScript code
 
-TODO: Include this diff that compares Ex.4 to Ex. 5: https://www.diffchecker.com/ChOwBkbe
+TODO: Include this diff that compares Ex.4 to Ex. 5: https://www.diffchecker.com/RU1do9kj
 
 ## Learning Resources
 
