@@ -119,10 +119,10 @@ const trimCache = async () => {
  * "Cache First" caching strategy
  * 
  * 1. Fetch from the cache
- *    - Return cached response if found
+ *    - Return cached response if found
  * 2. Fallback to fetch from the network
- *    - Store a copy of the network response in the cache
- *    - Return network response
+ *    - Store a copy of the network response in the cache
+ *    - Return network response
  * 
  * @see https://jakearchibald.com/2014/offline-cookbook/#on-network-response
  * @param {FetchEvent} fetchEvent A fetch event object
@@ -151,9 +151,9 @@ const cacheFirst = async fetchEvent => {
  * "Cache, falling back to network" caching strategy
  * 
  * 1. Fetch from the cache
- *    - Return cached response if found
+ *    - Return cached response if found
  * 2. Fallback to fetch from the network
- *    - Return network response
+ *    - Return network response
  * 
  * @see https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
  * @param {FetchEvent} fetchEvent A fetch event object
@@ -181,8 +181,8 @@ const cacheFallingBackToNetwork = async fetchEvent => {
 
 /**
  * Listen for the `message` event
- * 
- * The Document and service worker can communicate with 
+ *
+ * The Document and service worker can communicate with
  * each other through the `postMessage()` API
  */
 self.addEventListener('message', messageEvent => {
