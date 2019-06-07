@@ -301,8 +301,25 @@ self.addEventListener('push', pushEvent => {
   const options = {
     body: pushEvent.data.text(),
     icon: 'images/icon.png',// todo: use a real image
-    badge: 'images/badge.png'// todo
+    badge: 'images/badge.png',// todo: use real image
+    data: {
+      // We can send data along if we want to
+      openURL: 'https://cloudfour.com'
+    }
   };
 
   pushEvent.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', notificationclickEvent => {
+  console.log('[Service Worker] Notification click Received.');
+
+  notificationclickEvent.notification.close();
+
+  notificationclickEvent.waitUntil(
+    clients.openWindow(
+      // We can access any data passed via a notification
+      notificationclickEvent.notification.data.openURL
+    )
+  );
 });
