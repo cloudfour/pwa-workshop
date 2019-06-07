@@ -27,10 +27,7 @@ if ('serviceWorker' in navigator) {
 }
 
 /**
- * Install PWA/Add to Home Screen mini-app
- *
- * Handles "Install" UI logic and updates for the PWA, groups the code
- * together that is needed to handle "Add to Home Screen"/"Install" logic.
+ * Install PWA Workshop App/Add to Home Screen UI manager
  *
  * We created an IIFE to not pollute the global namespace
  * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
@@ -45,10 +42,11 @@ const installAppUIManager = (() => {
 
   /**
    * Updates the UI for "Install" button
+   * 
+   * Updates the state of the "Install" UI button depending 
+   * on the state of the `isAppInstalled` value
    */
   const updateUI = () => {
-    // Update the state of the "Install" UI button depending on
-    // the state of the `isAppInstalled` value
     installBtn.classList.toggle('u-hidden', isAppInstalled);
     installBtn.disabled = isAppInstalled;
   };
