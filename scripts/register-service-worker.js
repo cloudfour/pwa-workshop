@@ -52,7 +52,13 @@ const pushUIStateManager = (() => {
    * @param {Object} obj.subscription The Push subscription object
    */
   const updateSubscriptionOnServer = ({ subscription }) => {
-    console.log('Push: Subscription:', subscription);
+    if (subscription) {
+      // Backend server would store subscription for future use
+      console.log('Push: Server store new subscription:', subscription);
+    } else {
+      // Backend would delete subscription from database
+      console.log('Push: Server delete subscription');
+    }
   }
 
   /**
@@ -68,10 +74,36 @@ const pushUIStateManager = (() => {
       });
       return;
     }
-    
+
     const buttonStateText = isSubscribed ? 'Disable' : 'Enable'
     pushBtn.textContent = `${buttonStateText} Push Messaging`;
     pushBtn.disabled = false;
+  };
+
+  /**
+   * Handles usubscribing to Push notifications
+   */
+  const unsubscribeUser = () => {
+    swRegistration.pushManager.getSubscription()
+      .then(subscription => {
+        if (subscription) {
+          return subscription.unsubscribe();
+        }
+      })
+      .catch(error => {
+        console.log('Error unsubscribing:', error);
+        
+      })
+      .then(() => {
+        updateSubscriptionOnServer({
+          subscription: null
+        });
+
+        console.log('Push: User is unsubscribed');
+        isSubscribed = false;
+
+        updateUI();
+      });
   };
 
   /**
@@ -112,7 +144,7 @@ const pushUIStateManager = (() => {
   const onPushBtnClick = () => {
     pushBtn.disabled = true;
     if (isSubscribed) {
-      // TODO: Unsubscribe
+      unsubscribeUser();
     } else {
       subscribeUser();
     }
