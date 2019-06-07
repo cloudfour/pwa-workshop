@@ -127,7 +127,7 @@ const installAppUI = (() => {
 })();
 
 /**
- * Add a list for the `BeforeInstallPromptEvent` to handle it
+ * Add a listener for the `BeforeInstallPromptEvent` to handle it
  */
 window.addEventListener('beforeinstallprompt', beforeinstallpromptEvent => {
   console.groupEnd(); // Don't get grouped into any log group.
