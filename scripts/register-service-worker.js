@@ -74,7 +74,7 @@ const installAppUI = (() => {
     installPromptEvent.prompt();
 
     // Wait for the user to respond to the prompt
-    installPromptEvent.userChoice.then((choice) => {
+    installPromptEvent.userChoice.then(choice => {
       if (choice.outcome === 'accepted') {
         console.log('User accepted the "install" prompt');
         isAppInstalled = true;
