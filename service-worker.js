@@ -305,8 +305,8 @@ self.addEventListener('push', pushEvent => {
   const title = 'PWA Workshop';
   const options = {
     body: pushEvent.data.text(),
-    icon: 'images/icon.png',// todo: use a real image
-    badge: 'images/badge.png',// todo: use real image
+    icon: '/images/cloud-four-logo-192x192.png',
+    badge: '/images/cloud-four-logo-192x192.png',
     data: {
       // We can send data along if we want to
       openURL: 'https://cloudfour.com'
