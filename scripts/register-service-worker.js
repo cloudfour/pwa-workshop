@@ -55,7 +55,7 @@ const installAppUI = (() => {
     installBtn.classList.remove('u-hidden');
     installBtn.disabled = false;
 
-    if (!installBtn) {
+    if (!installPromptEvent) {
       return;
     }
 
