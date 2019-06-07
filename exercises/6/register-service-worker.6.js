@@ -27,6 +27,34 @@ if ('serviceWorker' in navigator) {
 }
 
 /**
+ * ----------------
+ * Event listeners
+ * ----------------
+ */
+
+/**
+ * Add a listener for the `BeforeInstallPromptEvent` to handle it
+ */
+window.addEventListener('beforeinstallprompt', beforeinstallpromptEvent => {
+  console.groupEnd(); // Don't get grouped into any log group.
+  console.log('The `beforeinstallprompt` event fired!');
+
+  // Prevent Chrome <= 67 from automatically showing the prompt
+  beforeinstallpromptEvent.preventDefault();
+
+  // Initialize the "Add to Home Screen" UI management mini-app
+  installAppUIManager.init({
+    beforeinstallpromptEvent
+  });
+});
+
+/**
+ * -------------------------
+ * UI State Manager Helpers
+ * -------------------------
+ */
+
+/**
  * Install PWA Workshop App/Add to Home Screen UI manager
  *
  * We created an IIFE to not pollute the global namespace
@@ -118,19 +146,3 @@ const installAppUIManager = (() => {
     init
   };
 })();
-
-/**
- * Add a listener for the `BeforeInstallPromptEvent` to handle it
- */
-window.addEventListener('beforeinstallprompt', beforeinstallpromptEvent => {
-  console.groupEnd(); // Don't get grouped into any log group.
-  console.log('The `beforeinstallprompt` event fired!');
-
-  // Prevent Chrome <= 67 from automatically showing the prompt
-  beforeinstallpromptEvent.preventDefault();
-
-  // Initialize the "Add to Home Screen" UI management mini-app
-  installAppUIManager.init({
-    beforeinstallpromptEvent
-  });
-});
