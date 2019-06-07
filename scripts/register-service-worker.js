@@ -38,6 +38,7 @@ if ('serviceWorker' in navigator) {
 const installAppUI = (() => {
   // Keeps track of the install prompt event
   let installPromptEvent = null;
+  // Keep track if the app is installed
   let isAppInstalled = false;
   // The "Install" button in the UI
   let installBtn = document.querySelector('.js-install-button');
