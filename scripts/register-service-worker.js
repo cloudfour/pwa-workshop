@@ -1,7 +1,7 @@
 /**
  * A UI state manager for Push Notifiation UX
  * 
- * I've created an IIFE to not pollute the global namespace
+ * We've created an IIFE to not pollute the global namespace
  * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
  * 
  * Push Notifications code from "Adding Push Notifications to a Web App"
