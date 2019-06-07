@@ -25,3 +25,126 @@ if ('serviceWorker' in navigator) {
   // Service workers are not supported by the browser
   console.error('This browser does not support service workers. :(');
 }
+
+/**
+ * Install PWA/Add to Home Screen mini-app
+ *
+ * Handles "Install" UI logic and updates for the PWA, groups the code
+ * together that is needed to handle "Add to Home Screen"/"Install" logic.
+ *
+ * We created an IIFE to not pollute the global namespace
+ * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+ */
+const installAppUI = (() => {
+  // Keeps track of the install prompt event
+  let installPromptEvent = null;
+  // The "Install" button in the UI
+  let installBtn = document.querySelector('.js-install-button');
+
+  /**
+   * Updates the UI for "Install" button
+   */
+  const updateUI = () => {
+    // No need to run the code if the button isn't found
+    // or if the installPromptEvent doesn't exist
+    if (!installBtn) {
+      return;
+    }
+
+    // Default to showing the "Install" button
+    installBtn.classList.remove('u-hidden');
+    installBtn.disabled = false;
+
+    if (!installBtn) {
+      return;
+    }
+
+    // Then update it based on the user choice
+    installPromptEvent.userChoice.then(choice => {
+      const isAppInstalled = choice.outcome === 'accepted';
+
+      // If already installed, then hide the "Install" button
+      // This will hide the "Install" button when the installed app is open
+      installBtn.classList.toggle('u-hidden', isAppInstalled);
+      installBtn.disabled = isAppInstalled;
+    });
+  };
+
+  /**
+   * The "Install" button click handler function
+   */
+  const onInstallBtnClick = () => {
+    // Return if the install prompt event doesn't exist
+    if (!installPromptEvent) {
+      return;
+    }
+
+    // Disable the button when prompting the "install" dialog
+    installBtn.disabled = true;
+
+    // Show the "install" dialog
+    installPromptEvent.prompt();
+
+    // Wait for the user to respond to the prompt
+    installPromptEvent.userChoice.then((choice) => {
+      if (choice.outcome === 'accepted') {
+        console.log('User accepted the "install" prompt');
+      } else {
+        console.log('User dismissed the "install" prompt');
+      }
+
+      // Clear the saved prompt since it can't be used again
+      installPromptEvent = null;
+    });
+  };
+
+  /**
+   * Initialization of the "install" button UI
+   */
+  const initUI = () => {
+    // No need to run the code if the button isn't found
+    if (!installBtn) {
+      return;
+    }
+
+    // Will handle showing/hiding the "install" button as needed
+    updateUI();
+
+    // Set up the installBtn click handler
+    installBtn.addEventListener('click', onInstallBtnClick);
+  };
+
+  /**
+   * Initializes our "Add to Home Screen" code
+   *
+   * @param {Object} obj An initialization data object
+   * @param {BeforeInstallPromptEvent} obj.beforeinstallpromptEvent The BeforeInstallPromptEvent
+   */
+  const init = ({ beforeinstallpromptEvent  }) => {
+    // Store the install prompt event to use it later
+    installPromptEvent = beforeinstallpromptEvent;
+    // Initialize the "Install" UI
+    initUI();
+  };
+
+  // Provide a public API for our "Add to Home Screen" mini-app
+  return {
+    init
+  };
+})();
+
+/**
+ * Add a list for the `BeforeInstallPromptEvent` to handle it
+ */
+window.addEventListener('beforeinstallprompt', beforeinstallpromptEvent => {
+  console.groupEnd(); // Don't get grouped into any log group.
+  console.log('The `beforeinstallprompt` event fired!');
+
+  // Prevent Chrome <= 67 from automatically showing the prompt
+  beforeinstallpromptEvent.preventDefault();
+
+  // Initialize the "Add to Home Screen" mini-app
+  installAppUI.init({
+    beforeinstallpromptEvent
+  });
+});
