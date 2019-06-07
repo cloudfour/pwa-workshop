@@ -47,13 +47,8 @@ const installAppUIManager = (() => {
    * Updates the UI for "Install" button
    */
   const updateUI = () => {
-    // No need to run the code if the button isn't found
-    if (!installBtn) {
-      return;
-    }
-
-    // If already installed, then hide the "Install" button
-    // This will hide the "Install" button when the installed app is open
+    // Update the state of the "Install" UI button depending on
+    // the state of the `isAppInstalled` value
     installBtn.classList.toggle('u-hidden', isAppInstalled);
     installBtn.disabled = isAppInstalled;
   };
