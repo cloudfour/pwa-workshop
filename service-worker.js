@@ -294,16 +294,15 @@ self.addEventListener('fetch', fetchEvent => {
   );
 });
 
-self.addEventListener('push', function(event) {
-  console.log('[Service Worker] Push Received.');
-  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+self.addEventListener('push', pushEvent => {
+  console.log('[Service Worker] Push Received:', pushEvent.data.text());
 
-  const title = 'Push Codelab';
+  const title = 'PWA Workshop';
   const options = {
-    body: 'Yay it works.',
-    icon: 'images/icon.png',
-    badge: 'images/badge.png'
+    body: pushEvent.data.text(),
+    icon: 'images/icon.png',// todo: use a real image
+    badge: 'images/badge.png'// todo
   };
 
-  event.waitUntil(self.registration.showNotification(title, options));
+  pushEvent.waitUntil(self.registration.showNotification(title, options));
 });
