@@ -38,7 +38,7 @@ const installAppUIManager = (() => {
   // Keep track if the app is installed
   let isAppInstalled = false;
   // The "Install" button in the UI
-  let installBtn = document.querySelector('.js-install-button');
+  const installBtn = document.querySelector('.js-install-button');
 
   /**
    * Updates the UI for "Install" button
