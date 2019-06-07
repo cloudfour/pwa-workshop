@@ -48,6 +48,9 @@ const pushUIStateManager = (() => {
   /**
    * In a production application, we'd pass along the subscription to the
    * backend server. For our workshop purposes, we will log the subscription.
+   * 
+   * @see https://developers.google.com/web/fundamentals/push-notifications/subscribing-a-user#send_a_subscription_to_your_server
+   * 
    * @param {Object} obj A data object
    * @param {Object} obj.subscription The Push subscription object
    */
@@ -94,6 +97,7 @@ const pushUIStateManager = (() => {
         console.log('Error unsubscribing:', error);
       })
       .then(() => {
+        // For a real app, we'd want the server to remove the subscription from its database
         updateSubscriptionOnServer({
           subscription: null
         });
