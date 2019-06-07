@@ -324,11 +324,13 @@ self.addEventListener('push', pushEvent => {
 self.addEventListener('notificationclick', notificationclickEvent => {
   console.log('[Service Worker] Notification click Received.');
 
+  // Close the notification
   notificationclickEvent.notification.close();
 
+  // Then you could open a URL if it was a blog post notification, for example,
+  // using the data that was passed along by the notification
   notificationclickEvent.waitUntil(
     clients.openWindow(
-      // We can access any data passed via a notification
       notificationclickEvent.notification.data.openURL
     )
   );
