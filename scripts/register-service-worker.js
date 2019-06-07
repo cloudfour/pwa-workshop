@@ -1,5 +1,5 @@
 /**
- * A mini UI application to control Push Notifiation UX
+ * A UI state manager for Push Notifiation UX
  * 
  * I've created an IIFE to not pollute the global namespace
  * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
