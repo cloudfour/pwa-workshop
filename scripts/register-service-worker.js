@@ -46,7 +46,6 @@ const installAppUI = (() => {
    */
   const updateUI = () => {
     // No need to run the code if the button isn't found
-    // or if the installPromptEvent doesn't exist
     if (!installBtn) {
       return;
     }
@@ -55,6 +54,7 @@ const installAppUI = (() => {
     installBtn.classList.remove('u-hidden');
     installBtn.disabled = false;
 
+    // Return if the installPromptEvent doesn't exist
     if (!installPromptEvent) {
       return;
     }
