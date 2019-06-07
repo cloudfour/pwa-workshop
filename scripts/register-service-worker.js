@@ -5,13 +5,20 @@
  * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
  * 
  * Push Notifications code from "Adding Push Notifications to a Web App"
- * @see https://developers.google.com/web/fundamentals/codelabs/push-notifications/#register_a_service_worker
+ * @see https://developers.google.com/web/fundamentals/codelabs/push-notifications
  */
 const pushUIStateManager = (() => {
+  /**
+   * This key is generated
+   * @see https://developers.google.com/web/fundamentals/codelabs/push-notifications/#get_application_server_keys
+   */
   const applicationServerPublicKey = 'BEfHt11szUkhzi0xr55nMilJ74vE66d7GWdYPmMfp2OHNNrgi0kSapF3dNvm7MoqucJtP5aW5n4FtJ0GK3qikJY';
 
-  let swRegistration = true;
+  // Will keep track of the service worker registration
+  let swRegistration = null;
+  // Will keep track of whether or not a user has subscribed to notifications
   let isSubscribed = false;
+  // The UI "Push" button
   const pushBtn = document.querySelector('.js-push-button');
 
   /**
@@ -38,13 +45,61 @@ const pushUIStateManager = (() => {
     return outputArray;
   };
 
+  /**
+   * In a production application, we'd pass along the subscription to the
+   * backend server. For workshop purposes, we will log the subscription.
+   * @param {Object} obj A data object
+   * @param {Object} obj.subscription The Push subscription object
+   */
+  const updateSubscriptionOnServer = ({ subscription }) => {
+    console.log('Push Subscription:', subscription);
+  }
+
+  const subscribeUser = () => {
+    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+    swRegistration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: applicationServerKey
+    })
+      .then(subscription => {
+        console.log('User is subscribed!!!');
+
+        // In a real app, you'd send then to your backend server
+        updateSubscriptionOnServer({
+          subscription
+        });
+
+        isSubscribed = true;
+
+        updateUI();
+      })
+      .catch(error => {
+        console.log('Failed to subscribe the user:', error);
+        updateUI();
+      });
+  }
+
   const updateUI = () => {
     const buttonStateText = isSubscribed ? 'Disable' : 'Enable'
-
-    pushBtn.
+    pushBtn.textContent = `${buttonStateText} Push Messaging`;
+    pushBtn.disabled = false;
   };
 
+  const onPushBtnClick = () => {
+    pushBtn.disabled = true;
+    if (isSubscribed) {
+      // TODO: Unsubscribe
+    } else {
+      subscribeUser();
+    }
+  }
+
   const initUI = () => {
+    // No need to run the code if the button isn't found
+    if (!pushBtn) {
+      return;
+    }
+
     swRegistration.pushManager.getSubscription()
       .then(subscription => {
         // Store whether or not a user is subscribed
@@ -57,11 +112,9 @@ const pushUIStateManager = (() => {
         }
 
         updateUI();
-
-        // updateButton({
-        //   isSubscribed: isSubscribed
-        // });
       });
+
+    pushBtn.addEventListener('click', onPushBtnClick)
   };
 
   /**
@@ -76,15 +129,8 @@ const pushUIStateManager = (() => {
     initUI();
   }
 
-  function update() {
-    console.log('registration', swRegistration);
-    console.log('pushEnBtn', pushBtn);
-    
-  }
-  
   return {
-    init,
-    update
+    init
   }
 })();
 
@@ -134,79 +180,3 @@ const askForNotficationsPermission = async () => {
     });
   }
 };
-
-// const initializeUI = () => {
-//   pushButton.addEventListener('click', () => {
-//     pushButton.disabled = true;
-//     // askForNotficationsPermission();
-//     if (isSubscribed) {
-//       // TODO: Unsubscribe user
-//     } else {
-//       // subscribeUser();
-//     }
-//   });
-
-//   swRegistration.pushManager.getSubscription()
-//     .then(subscription => {
-//       const isSubscribed = !(subscription === null);
-
-//       if (isSubscribed) {
-//         console.log('Subscribed');
-//       } else {
-//         console.log('NOT subscribed');
-//       }
-
-//       updateButton({
-//         isSubscribed: isSubscribed
-//       });
-//     });
-// }
-
-const updateButton = ({ isSubscribed }) => {
-  if (isSubscribed) {
-    pushButton.textContent = 'Disable Push Messaging';
-  } else {
-    pushButton.textContent = 'Enable Push Messaging';
-  }
-
-  pushButton.disabled = false;
-}
-
-// const subscribeUser = () => {
-//   const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-//   swRegistration.pushManager.subscribe({
-//     userVisibleOnly: true, // Chrome requires this
-//     applicationServerKey: applicationServerKey
-//   })
-//     .then(subscription => {
-//       console.log('User is subscribed!!!');
-      
-//       // In a real app, you'd send then to your backend server
-//       updateSubscriptionOnServer(subscription);
-
-//       isSubscribed = true;
-
-//       updateButton();
-//     })
-//     .catch(error => {
-//       console.log('Failed to subscribe the user:', error);
-//       updateButton();
-//     });
-// }
-
-// const updateSubscriptionOnServer = subscription => {
-//   // TODO: Send subscription to application server
-
-//   // const subscriptionJson = document.querySelector('.js-subscription-json');
-//   // const subscriptionDetails =
-//   //   document.querySelector('.js-subscription-details');
-
-//   if (subscription) {
-//     console.log(subscription);
-    
-//     // subscriptionJson.textContent = JSON.stringify(subscription);
-//     // subscriptionDetails.classList.remove('is-invisible');
-//   } else {
-//     // subscriptionDetails.classList.add('is-invisible');
-//   }
-// }
