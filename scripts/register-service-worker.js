@@ -52,19 +52,32 @@ const pushUIStateManager = (() => {
    * @param {Object} obj.subscription The Push subscription object
    */
   const updateSubscriptionOnServer = ({ subscription }) => {
-    console.log('Push Subscription:', subscription);
+    console.log('Push: Subscription:', subscription);
   }
 
+  /**
+   * Updates the UI state for the "Push" button
+   */
+  const updateUI = () => {
+    const buttonStateText = isSubscribed ? 'Disable' : 'Enable'
+    pushBtn.textContent = `${buttonStateText} Push Messaging`;
+    pushBtn.disabled = false;
+  };
+
+  /**
+   * Handles subscribing to Push Notifications
+   */
   const subscribeUser = () => {
     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+
     swRegistration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: applicationServerKey
+      applicationServerKey
     })
       .then(subscription => {
-        console.log('User is subscribed!!!');
+        console.log('Push: User is subscribed!!!');
 
-        // In a real app, you'd send then to your backend server
+        // In a production app, send the subscription to your backend server
         updateSubscriptionOnServer({
           subscription
         });
@@ -74,15 +87,9 @@ const pushUIStateManager = (() => {
         updateUI();
       })
       .catch(error => {
-        console.log('Failed to subscribe the user:', error);
+        console.log('Push: Failed to subscribe the user:', error);
         updateUI();
       });
-  }
-
-  const updateUI = () => {
-    const buttonStateText = isSubscribed ? 'Disable' : 'Enable'
-    pushBtn.textContent = `${buttonStateText} Push Messaging`;
-    pushBtn.disabled = false;
   };
 
   const onPushBtnClick = () => {
@@ -92,7 +99,7 @@ const pushUIStateManager = (() => {
     } else {
       subscribeUser();
     }
-  }
+  };
 
   const initUI = () => {
     // No need to run the code if the button isn't found
@@ -106,9 +113,9 @@ const pushUIStateManager = (() => {
         isSubscribed = !(subscription === null);
 
         if (isSubscribed) {
-          console.log('Subscribed');
+          console.log('Push: Subscribed');
         } else {
-          console.log('NOT subscribed');
+          console.log('Push: NOT subscribed');
         }
 
         updateUI();
@@ -169,14 +176,3 @@ if ('serviceWorker' in navigator) {
   // Service workers are not supported by the browser
   console.error('This browser does not support service workers. :(');
 }
-
-const askForNotficationsPermission = async () => {
-  const permission = await Notification.requestPermission();
-  console.log('Persmission:::', permission);
-  if (permission === 'granted') {
-    isSubscribed = true;
-    updateButton({
-      isSubscribed: true
-    });
-  }
-};
