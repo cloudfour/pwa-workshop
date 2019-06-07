@@ -38,6 +38,7 @@ if ('serviceWorker' in navigator) {
 const installAppUI = (() => {
   // Keeps track of the install prompt event
   let installPromptEvent = null;
+  let isAppInstalled = false;
   // The "Install" button in the UI
   let installBtn = document.querySelector('.js-install-button');
 
@@ -50,24 +51,10 @@ const installAppUI = (() => {
       return;
     }
 
-    // Default to showing the "Install" button
-    installBtn.classList.remove('u-hidden');
-    installBtn.disabled = false;
-
-    // Return if the installPromptEvent doesn't exist
-    if (!installPromptEvent) {
-      return;
-    }
-
-    // Then update it based on the user choice
-    installPromptEvent.userChoice.then(choice => {
-      const isAppInstalled = choice.outcome === 'accepted';
-
-      // If already installed, then hide the "Install" button
-      // This will hide the "Install" button when the installed app is open
-      installBtn.classList.toggle('u-hidden', isAppInstalled);
-      installBtn.disabled = isAppInstalled;
-    });
+    // If already installed, then hide the "Install" button
+    // This will hide the "Install" button when the installed app is open
+    installBtn.classList.toggle('u-hidden', isAppInstalled);
+    installBtn.disabled = isAppInstalled;
   };
 
   /**
@@ -89,9 +76,14 @@ const installAppUI = (() => {
     installPromptEvent.userChoice.then((choice) => {
       if (choice.outcome === 'accepted') {
         console.log('User accepted the "install" prompt');
+        isAppInstalled = true;
       } else {
         console.log('User dismissed the "install" prompt');
+        isAppInstalled = false;
       }
+
+      // Update the UI now that the user made a choice
+      updateUI();
 
       // Clear the saved prompt since it can't be used again
       installPromptEvent = null;
