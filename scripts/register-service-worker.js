@@ -4,7 +4,7 @@
  * We've created an IIFE to not pollute the global namespace
  * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
  * 
- * Push Notifications code from "Adding Push Notifications to a Web App"
+ * Some of this code borrowed from "Adding Push Notifications to a Web App"
  * @see https://developers.google.com/web/fundamentals/codelabs/push-notifications
  */
 const pushUIStateManager = (() => {
@@ -47,7 +47,7 @@ const pushUIStateManager = (() => {
 
   /**
    * In a production application, we'd pass along the subscription to the
-   * backend server. For workshop purposes, we will log the subscription.
+   * backend server. For our workshop purposes, we will log the subscription.
    * @param {Object} obj A data object
    * @param {Object} obj.subscription The Push subscription object
    */
@@ -71,7 +71,9 @@ const pushUIStateManager = (() => {
     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
 
     swRegistration.pushManager.subscribe({
+      // @see: https://developers.google.com/web/fundamentals/push-notifications/subscribing-a-user#uservisibleonly_options
       userVisibleOnly: true,
+      // @see https://developers.google.com/web/fundamentals/push-notifications/subscribing-a-user#applicationserverkey_option
       applicationServerKey
     })
       .then(subscription => {
@@ -92,6 +94,11 @@ const pushUIStateManager = (() => {
       });
   };
 
+  /**
+   * The "Push" button click handler
+   * 
+   * Subscribes or unsubscribed from Push notifications
+   */
   const onPushBtnClick = () => {
     pushBtn.disabled = true;
     if (isSubscribed) {
@@ -101,6 +108,9 @@ const pushUIStateManager = (() => {
     }
   };
 
+  /**
+   * Initialize the Push UI
+   */
   const initUI = () => {
     // No need to run the code if the button isn't found
     if (!pushBtn) {
@@ -121,7 +131,7 @@ const pushUIStateManager = (() => {
         updateUI();
       });
 
-    pushBtn.addEventListener('click', onPushBtnClick)
+    pushBtn.addEventListener('click', onPushBtnClick);
   };
 
   /**
