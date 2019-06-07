@@ -294,6 +294,11 @@ self.addEventListener('fetch', fetchEvent => {
   );
 });
 
+/**
+ * Listen for the `push` event
+ * 
+ * Allows the service worker to handle Web Push events received from a server
+ */
 self.addEventListener('push', pushEvent => {
   console.log('[Service Worker] Push Received:', pushEvent.data.text());
 
@@ -311,6 +316,11 @@ self.addEventListener('push', pushEvent => {
   pushEvent.waitUntil(self.registration.showNotification(title, options));
 });
 
+/**
+ * Listen for the `notificationclick` event
+ * 
+ * Triggers when a user engages with the Notification
+ */
 self.addEventListener('notificationclick', notificationclickEvent => {
   console.log('[Service Worker] Notification click Received.');
 
