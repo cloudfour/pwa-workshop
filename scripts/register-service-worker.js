@@ -92,7 +92,6 @@ const pushUIStateManager = (() => {
       })
       .catch(error => {
         console.log('Error unsubscribing:', error);
-        
       })
       .then(() => {
         updateSubscriptionOnServer({
