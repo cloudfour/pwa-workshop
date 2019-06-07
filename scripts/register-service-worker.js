@@ -35,7 +35,7 @@ if ('serviceWorker' in navigator) {
  * We created an IIFE to not pollute the global namespace
  * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
  */
-const installAppUI = (() => {
+const installAppUIManager = (() => {
   // Keeps track of the install prompt event
   let installPromptEvent = null;
   // Keep track if the app is installed
@@ -136,8 +136,8 @@ window.addEventListener('beforeinstallprompt', beforeinstallpromptEvent => {
   // Prevent Chrome <= 67 from automatically showing the prompt
   beforeinstallpromptEvent.preventDefault();
 
-  // Initialize the "Add to Home Screen" mini-app
-  installAppUI.init({
+  // Initialize the "Add to Home Screen" UI management mini-app
+  installAppUIManager.init({
     beforeinstallpromptEvent
   });
 });
