@@ -59,6 +59,16 @@ const pushUIStateManager = (() => {
    * Updates the UI state for the "Push" button
    */
   const updateUI = () => {
+    // Handle when notification persmission is denied
+    if (Notification.permission === 'denied') {
+      pushBtn.textContent = 'Push Messaging Blocked';
+      pushBtn.disabled = true;
+      updateSubscriptionOnServer({
+        subscription: null
+      });
+      return;
+    }
+    
     const buttonStateText = isSubscribed ? 'Disable' : 'Enable'
     pushBtn.textContent = `${buttonStateText} Push Messaging`;
     pushBtn.disabled = false;
