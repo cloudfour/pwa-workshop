@@ -68,6 +68,11 @@ const pushUIStateManager = (() => {
    * Updates the UI state for the "Push" button
    */
   const updateUI = () => {
+    // Let's allow the button to be visible now
+    if (pushBtn.classList.contains('u-hidden')) {
+      pushBtn.classList.remove('u-hidden');
+    }
+
     // Handle when notification persmission is denied
     if (Notification.permission === 'denied') {
       pushBtn.textContent = 'Push Messaging Blocked';
@@ -78,6 +83,7 @@ const pushUIStateManager = (() => {
       return;
     }
 
+    // Keep the button state text up to date depending on the `isSubscribed` value
     const buttonStateText = isSubscribed ? 'Disable' : 'Enable'
     pushBtn.textContent = `${buttonStateText} Push Messaging`;
     pushBtn.disabled = false;
@@ -162,6 +168,7 @@ const pushUIStateManager = (() => {
       return;
     }
 
+    // Check on initialization if there is already a subscription
     swRegistration.pushManager.getSubscription()
       .then(subscription => {
         // Store whether or not a user is subscribed
