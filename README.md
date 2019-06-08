@@ -1,39 +1,25 @@
 # Progressive Web App Workshop
 
-The starter files for the Progressive Web App workshop presented by Cloud Four.
+## Welcome!
 
-@todo: Explain this...
+Thank you for joining us in today's workshop. We will be learning about Progressive Web Apps including how to:
 
-Add an asset to a new cache via DevTools:
-```js
-(async function() {
-  const cache = await caches.open('my-cache');
-  await cache.add('/images/portland.svg');
-}())
-```
-```js
-caches.open('my-cache')
-  .then(cache => cache.add('/images/portland.svg'));
-```
-With "success"/"fail" logs:
-```js
-(async function() {
-  const cache = await caches.open('my-cache');
-  await cache.add('/images/portland.svg');
-}())
-  .then(() => console.log('Success!'))
-  .catch(() => console.log('Sorry, it failed.'));
-```
-```js
-caches.open('my-cache')
-  .then(cache => cache.add('/images/portland.svg'))
-  .then(() => console.log('Success!'))
-  .catch(() => console.log('Sorry, it failed.'));
-```
+- Register a service worker
+- Listen for and handle the service worker install, activate and fetch events
+- Use the Cache and Fetch APIs with your service worker
+- Handle a fetch event when the network is offline
+- Create a cache to precache a list of required and optional assets
+- Implement different caching strategies
+- Set up a fallback image and offline page
+- Handle different asset types to provide an appropriate caching strategy
+- Version caches (including purging old caches)
+- Write basic cache trimming logic
+- Set up a manifest file
+- Set up a basic Push Notification
 
-## Caching Strategies
+Thank you for giving us the opportunity to share with you. We are happy and excited to be here!
 
-Cache Only and Network Only aren't typical use cases. Cache First covers both.
+## Learning Resources
 
 - [Cache Only](https://jakearchibald.com/2014/offline-cookbook/#cache-only)
 - [Network Only](https://jakearchibald.com/2014/offline-cookbook/#network-only)
