@@ -1,20 +1,27 @@
 # Progressive Web App Workshop, Exercise 4
 
-TODO: Add exercise 4 instructions, goals & resources
-
 ## What you'll learn
 
-- TODO
+- How to add to cache and use an offline fallback page
+- How to add to cache and use a fallback image
+- How to set up a cache as you go caching strategy (Cache First)
 
-## TODO
+## What you'll need
 
-1. Open the `/service-worker.js` JavaScript file
+- Google Chrome browser: <https://www.google.com/chrome/>
 
-1. TODO
+## Exercise
+
+1. Continue working with the `/service-worker.js` JavaScript file
 
     - See [`exercises/4/service-worker.4.js`](service-worker.4.js) for the completed JavaScript code
 
-TODO: Include this diff that compares Ex.3 to Ex. 4: https://www.diffchecker.com/ZovsLnzi
+
+## File Diffs
+
+You can review the following file diff(s) to see the new code added during this exercise:
+
+- `service-worker.js` file diff: https://www.diffchecker.com/ZovsLnzi
 
 ## Learning Resources
 

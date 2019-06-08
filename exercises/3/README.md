@@ -1,22 +1,27 @@
 # Progressive Web App Workshop, Exercise 3
 
-TODO: Add exercise 3 instructions, goals & resources
-
 ## What you'll learn
 
-- TODO
+- How to create a new cache storage with the service worker
+- How to add network responses to cache using a precached list
+- How to listen to `fetch` events and respond with a cached response, otherwise, fallback to the network
 
-## TODO
+## What you'll need
 
-1. Open the `/service-worker.js` JavaScript file
+- Google Chrome browser: <https://www.google.com/chrome/>
 
-1. TODO
+## Create a cache and use cached network responses
+
+1. Continue working with the `/service-worker.js` JavaScript file
 
     - See [`exercises/3/service-worker.3.js`](service-worker.3.js) for the completed JavaScript code
 
 
-TODO: Include this diff that compares Ex.2 to Ex. 3: 
-https://www.diffchecker.com/9NiJReUF
+## File Diffs
+
+You can review the following file diff(s) to see the new code added during this exercise:
+
+- `service-worker.js` file diff: https://www.diffchecker.com/9NiJReUF
 
 ## Learning Resources
 
