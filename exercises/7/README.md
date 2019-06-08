@@ -1,8 +1,8 @@
-# Progressive Web App Workshop, Exercise 6
+# Progressive Web App Workshop, Exercise 7
 
 ## What you'll learn
 
-- How to set up and handle push notifications including asking permissions
+- How to set up and handle push notifications including asking permissions (without a backend server)
 
 ## What you'll need
 
@@ -10,29 +10,23 @@
 
 ## Exercise
 
-1. Open the `manifest.json` file
+1. Open the `service-worker.js` file
 
-    - See [`exercises/6/manifest.6.json`](manifest.6.json) for the completed manifest code
+    - See [`exercises/7/service-worker.7.js`](service-worker.7.js) for the completed manifest code
 
 1. Open the `scripts/register-service-worker.js` file
 
-    - See [`exercises/6/register-service-worker.6.js`](register-service-worker.6.js) for the completed JavaScript code
+    - See [`exercises/7/register-service-worker.7.js`](register-service-worker.7.js) for the completed JavaScript code
 
 ## File Diffs
 
 You can review the following file diff(s) to see the new code added during this exercise:
 
-- `register-service-worker.js` diff: https://www.diffchecker.com/7ZgJEJPf
+- `register-service-worker.js` diff: https://www.diffchecker.com/JKXBn2se
+- `service-worker.js` diff: https://www.diffchecker.com/6fyec8SA
 
 
 ## Learning Resources
 
 - https://developers.google.com/web/fundamentals/primers/service-workers/
 
-
-# Progressive Web App Workshop, Exercise 7
-
-TODO: Add exercise 7 instructions, goals & resources
-
-Cloud Four PWA Workshop, Exercise 7 register-service-worker.js: https://www.diffchecker.com/JKXBn2se
-Cloud Four PWA Workshop, Exercise 7 service-worker.js: https://www.diffchecker.com/6fyec8SA
