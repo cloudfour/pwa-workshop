@@ -23,7 +23,7 @@
 
 You can review the following file diff(s) to see the new code added during this exercise:
 
-- `register-service-worker.js` diff: https://www.diffchecker.com/7ZgJEJPf
+- `register-service-worker.js` diff: https://www.diffchecker.com/seRXVQip
 
 
 ## Learning Resources
