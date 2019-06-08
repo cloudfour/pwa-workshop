@@ -1,20 +1,27 @@
 # Progressive Web App Workshop, Exercise 5
 
-TODO: Add exercise 5 instructions, goals & resources
-
 ## What you'll learn
 
-- TODO
+- How to version and update your cache
+- How to delete out-of-date caches
+- How to add basic cache trimming logic
 
-## TODO
+## What you'll need
 
-1. Open the `/service-worker.js` JavaScript file
+- Google Chrome browser: <https://www.google.com/chrome/>
 
-1. TODO
+## Exercise
+
+1. Continue working with the `/service-worker.js` JavaScript file
 
     - See [`exercises/5/service-worker.5.js`](service-worker.5.js) for the completed JavaScript code
 
-TODO: Include this diff that compares Ex.4 to Ex. 5: https://www.diffchecker.com/RU1do9kj
+
+## File Diffs
+
+You can review the following file diff(s) to see the new code added during this exercise:
+
+- `service-worker.js` file diff: https://www.diffchecker.com/RU1do9kj
 
 ## Learning Resources
 
