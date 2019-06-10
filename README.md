@@ -5,7 +5,7 @@
 Thank you for joining us in today's workshop. We will be learning about Progressive Web Apps including how to:
 
 - Register a service worker
-- Listen for and handle the service worker install, activate and fetch events
+- Listen for and handle the service worker `install`, `activate`, `fetch`, `message`, `push` and `notificationclick` events
 - Use the Cache and Fetch APIs with your service worker
 - Handle a fetch event when the network is offline
 - Create a cache to precache a list of required and optional assets
@@ -15,6 +15,7 @@ Thank you for joining us in today's workshop. We will be learning about Progress
 - Version caches (including purging old caches)
 - Write basic cache trimming logic
 - Set up a manifest file
+- Set up Add To Home Screen
 - Set up a basic Push Notification
 
 Thank you for giving us the opportunity to share with you. We are happy and excited to be here!
