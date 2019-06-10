@@ -21,7 +21,7 @@
 
 You can review the following file diff(s) to see the new code added during this exercise:
 
-- `service-worker.js` file diff: https://www.diffchecker.com/9NiJReUF
+- `service-worker.js` file diff: https://www.diffchecker.com/WpiEWjfy
 
 ## Learning Resources
 
