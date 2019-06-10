@@ -19,6 +19,7 @@ const PWA_WORKSHOP_CACHE = `pwa-workshop-v1`;
  */
 const PRECACHE_ASSETS = {
   MUST_HAVE: [
+    '/manifest.json',
     '/css/styles.css',
     '/fonts/source-code-pro-v6-latin-regular.woff2',
     '/fonts/source-sans-pro-v9-latin-700.woff2',
