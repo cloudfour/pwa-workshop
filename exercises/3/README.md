@@ -13,14 +13,12 @@
 ## Create a cache and use cached network responses
 
 1. Continue working with the `/service-worker.js` JavaScript file
-
     - See [`exercises/3/service-worker.3.js`](service-worker.3.js) for the completed JavaScript code
 
 
 ## File Diffs
 
 You can review the following file diff(s) to see the new code added during this exercise:
-
 - `service-worker.js` file diff: https://www.diffchecker.com/WpiEWjfy
 
 ## Learning Resources
