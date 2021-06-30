@@ -11,9 +11,7 @@
 ## Create a basic service worker
 
 1. Open the `/service-worker.js` JavaScript file
-
 1. Add `install`, `activate` and `fetch` event listeners
-
     - See [`exercises/2/service-worker.2.js`](service-worker.2.js) for the completed JavaScript code
 
 ## File Diffs
