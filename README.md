@@ -27,5 +27,4 @@ Thank you for giving us the opportunity to share with you. We are happy and exci
 - [Cache First (Cache Falling Back to Network)](https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network)
 - [Network First (Network Falling Back to Cache)](https://jakearchibald.com/2014/offline-cookbook/#network-falling-back-to-cache)
 - [Stale-While-Revalidate](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate)
-
 - [Timing out](https://adactio.com/journal/15122)
