@@ -12,17 +12,13 @@
 ## Exercise
 
 1. Open the `manifest.json` file
-
     - See [`exercises/6/manifest.6.json`](manifest.6.json) for the completed manifest code
-
 1. Open the `scripts/register-service-worker.js` file
-
     - See [`exercises/6/register-service-worker.6.js`](register-service-worker.6.js) for the completed JavaScript code
 
 ## File Diffs
 
 You can review the following file diff(s) to see the new code added during this exercise:
-
 - `register-service-worker.js` diff: https://www.diffchecker.com/seRXVQip
 
 
